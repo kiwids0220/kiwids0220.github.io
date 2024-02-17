@@ -17,7 +17,7 @@ You can technically "pause" the fuzzer and get your system dump there.
 
 To make sure the Windows guest vm is able to collect a full system memory dump in QEMU, we need to make sure that it installs the `FwCfg driver` which is included in the `virt-io` ISO installer, for more detailed instruction, I found this blog very helpful [Guest Windows debugging and crashdumping under QEMU/KVM: dump-guest-memory, vmcoreinfo and virtio-win](https://daynix.github.io/2023/02/19/Guest-Windows-debugging-and-crashdumping-under-QEMU-KVM-dump-guest-memory-vmcoreinfo-and-virtio-win.html)
 
-Well the trick to "pause" the fuzzer is simply reapplying what I talked about in the [Part I ]({{ site.baseurl }}{% link 2024-01-31-Debugging_KAFL_A_SNAPSHOTBASED_FUZZER.md %}) with another trick - using socat. The details is documented [QEMU monitor with socat](https://unix.stackexchange.com/questions/426652/connect-to-running-qemu-instance-with-qemu-monitor).
+Well the trick to "pause" the fuzzer is simply reapplying what I talked about in the [Part I ]({{ site.baseurl }}{% post_url 2024-01-31-Debugging_KAFL_A_SNAPSHOTBASED_FUZZER %}) with another trick - using socat. The details is documented [QEMU monitor with socat](https://unix.stackexchange.com/questions/426652/connect-to-running-qemu-instance-with-qemu-monitor).
 
 Here is how you do it:
 - We are still gonna run the same command line argument with our GDB/Pwndbg, but this time adding `-device vmcoreinfo --monitor unix:qemu-monitor-socket,server,nowait` at the end
