@@ -2,8 +2,8 @@
 layout: post
 title: Debugging kAFL, A Snapshot-based Fuzzing - Part I
 date: 2024-01-31
-categories: [VIRTUALIZATION, QEMU-NYX, KAFL]
-tags : [FUZZ]
+categories: [Virtualization, QEMU-NYX, kAFL]
+tags : [fuzz]
 ---
 ### kAFL 
 
