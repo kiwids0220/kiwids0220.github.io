@@ -171,10 +171,6 @@ defaults:
       path: assets/js/dist
     values:
       swcache: true
-  - scope:
-      path: assets/images/favicons
-    values:
-      swcache: true
 
 
 sass:
