@@ -54,14 +54,13 @@ dt nt!_DISPATCHER_HEADER ffff8005b84bd5a0
 
 #### Finding the object with the name
 - Given a object name
-```
-kd> !object \SECURITY\LSA_AUTHENTICATION_INITIALIZED
-Object: ffff8005b84bd5a0  Type: (ffff8005b84c1f00) Event
-    ObjectHeader: ffff8005b84bd570 (new version)
-    HandleCount: 1  PointerCount: 32770
-    Directory Object: ffffcc0a23c1c770  Name: LSA_AUTHENTICATION_INITIALIZED
-    
-```
+    ```
+    kd> !object \SECURITY\LSA_AUTHENTICATION_INITIALIZED
+    Object: ffff8005b84bd5a0  Type: (ffff8005b84c1f00) Event
+        ObjectHeader: ffff8005b84bd570 (new version)
+        HandleCount: 1  PointerCount: 32770
+        Directory Object: ffffcc0a23c1c770  Name: LSA_AUTHENTICATION_INITIALIZED   
+    ```
 - Highlight the Object address by `Crtl + Left Click` on the address `ffff8005b84bd5a0`
 
 - Search the handle table `!findhandle ffff8005b84bd5a0`
