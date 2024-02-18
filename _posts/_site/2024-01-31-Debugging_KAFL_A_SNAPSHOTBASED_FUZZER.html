@@ -1,0 +1,52 @@
+<h3 id="kafl">kAFL</h3>
+
+<p>Right of the bat, these sources act as the single sources of truth if you want to get a deeper understanding of kAFL:
+<a href="https://www.usenix.org/system/files/conference/usenixsecurity17/sec17-schumilo.pdf">kAFL White Paper</a>
+<a href="https://intellabs.github.io/kAFL/tutorials/introduction.html">kAFL Doc</a></p>
+
+<h3 id="whats-the-blogpost-about">What’s the blogpost about?</h3>
+
+<p>Recently, I wanted to dive into the world of fuzzing, espcially kernel fuzzing, which is what led me to this project. I knew nothing about Fuzzing, what’s a fuzzer, harness, corpus, frontend, backend, mutator, snapshot-based fuzzing. None of these made sense to me, so kAFL is the perfect project for me to dive in and learn about all those concepts.</p>
+
+<p>I wanted to utilize kAFL to fuzz Windows kernel drivers/core system component, but while the Github repo provided a great example for both fuzzing against the kernel mode target and the user mode target, I still find myself stuck in a suitiation where the fuzzer does not work the way I inteded. Well, the most important question is, how do we figure it out? The only answer is to start debugging..</p>
+
+<h3 id="infrastructure">Infrastructure</h3>
+
+<p>The white paper ^ has nice explanation for kAFL’s internal infrastructure, you can also find it on their github</p>
+
+<h3 id="debugging-the-frontend">Debugging the frontend</h3>
+<p>The frontend fuzzer kAFL itself is written in Python, and the vscode is prob the best option here to debug anything in Python. So I find the <code class="language-plaintext highlighter-rouge">__main__.py</code> and put a couple breakpoints
+<img src="/assets/images/main.py-1.png" alt="mainPy" />
+Upon creating the Python debug configuration file and launching it with argument <code class="language-plaintext highlighter-rouge">fuzz --afl</code> , it hits those breakpoints but I was unable to continue to debug because the function <code class="language-plaintext highlighter-rouge">qemu._connect()</code> will fail because of a socket error. It turns out the frontend python script is communicating to the QEMU instance via <code class="language-plaintext highlighter-rouge">UNIX Socket</code> as documented in the kAFL documentation.</p>
+
+<p><img src="/assets/images/2024-01-31-QEMU-connect.py.png" alt="" />
+<a href="https://intellabs.github.io/kAFL/reference/workdir_layout.html">Doc</a></p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>├── interface_N                  - socket between kAFL worker N and Qemu N
+</code></pre></div></div>
+
+<h3 id="we-would-love-to-debug-the-qemu-instance-as-well">We would love to debug the QEMU instance as well</h3>
+<p>As you see in the screenshot above, I have commented out the <code class="language-plaintext highlighter-rouge">subprocess</code> which will start a new <code class="language-plaintext highlighter-rouge">QEMU-Nyx</code> process that boots our image. while QEMU provides useful stub <code class="language-plaintext highlighter-rouge">-S, -s</code> for pausing the VM image at it’s first vCPU execution, we would still love to pause the QEMU process at the initialization phase (i.e., Machine/CPU/Peripheral initializatio) which is the actual <code class="language-plaintext highlighter-rouge">main()</code> function in <code class="language-plaintext highlighter-rouge">vl.c</code> file (QEMU 4.2.0 release).</p>
+
+<p>So, we can tell the python script to pause at <code class="language-plaintext highlighter-rouge">qemu.connect()</code> and then start the QEMU-Nyx instance ourself -&gt; wait for the socket to listen for connection -&gt; continue the frontend fuzzer -&gt; we can now continue the debugging process</p>
+
+<p>To achieve this, I leveraged <code class="language-plaintext highlighter-rouge">debugpy</code> which is what vscode uses under the hood for python debugging, to listen on a port at the begining of the <code class="language-plaintext highlighter-rouge">start()</code> function of QEMU python class</p>
+
+<p><img src="/assets/images/2024-01-31-Start.png" alt="" /></p>
+
+<p>And the configuration file
+<img src="/assets/images/2024-01-31-config-port.png" alt="" /></p>
+
+<h3 id="building-qemu-nyx-yourself">Building QEMU-Nyx yourself</h3>
+
+<p>If you look at the repo <a href="https://github.com/nyx-fuzz/QEMU-Nyx">QEMU-Nyx</a>, you will see it included a <a href="https://github.com/nyx-fuzz/QEMU-Nyx/blob/qemu-nyx-4.2.0/compile_qemu_nyx.sh">.sh</a> script to build the QEMU-Nyx with a few options 
+<img src="/assets/images/2024-01-31-compilesh.png" alt="" />
+Here is the actual flags being passed to configure
+<img src="/assets/images/2024-01-31-compileflag.png" alt="" /></p>
+
+<p>This is done so that we can get the full symbol for the <code class="language-plaintext highlighter-rouge">qemu-system-x86_64</code> and start debugging with <code class="language-plaintext highlighter-rouge">gdb</code>.</p>
+
+<h3 id="putting-it-together">Putting it together</h3>
+
+<p>Follow the procedure of building your vm image using vagrant and ansible playbook -&gt; start the fuzzer with <code class="language-plaintext highlighter-rouge">kafl fuzz --purge -w /tmp/whatever</code>  (-w for setting the working directory) -&gt; make sure the interface_0 unix socket exist in the folder, attach to the python script debugpy and start debugging.</p>
+
+<p><img src="/assets/images/2024-01-31-QEMU-Nyx%20handshake.png" alt="" /><img src="/assets/images/2024-01-31-pwndbg.png" alt="" /></p>

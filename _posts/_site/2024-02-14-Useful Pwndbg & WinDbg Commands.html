@@ -1,0 +1,71 @@
+<h3 id="windbg-to-pwndbg">Windbg to Pwndbg</h3>
+<p>Thanks to the Pwndbg dev team, users coming from Windbg will find pwndbg quite handy with the <code class="language-plaintext highlighter-rouge">db, dt, dq, dq, etc...</code> flags in Pwndbg. I really like the <code class="language-plaintext highlighter-rouge">dt</code> flag that will print out the type given a variable name.
+<img src="/assets/images/2024-01-31-dt.png" alt="" /></p>
+
+<p>I also like <code class="language-plaintext highlighter-rouge">ptype</code> command which will print the type of the variable</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pwndbg&gt; ptype fast_reload_t
+type = struct fast_reload_s {
+    FastReloadMemoryMode mode;
+    shadow_memory_t *shadow_memory_state;
+    snapshot_page_blocklist_t *blocklist;
+    nyx_fdl_t *fdl_state;
+    nyx_dirty_ring_t *dirty_ring_state;
+    nyx_fdl_user_t *fdl_user_state;
+    nyx_device_state_t *device_state;
+    nyx_block_t *block_state;
+    _Bool root_snapshot_created;
+    _Bool incremental_snapshot_enabled;
+    nyx_coverage_bitmap_copy_t *bitmap_copy;
+    uint32_t dirty_pages;
+}
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">info locals</code> is another good one that can list Local variables of the current stack frame.</p>
+
+<h2 id="useful-windbg-command">Useful Windbg command</h2>
+
+<h4 id="finding-dispatcher-object-event-mutex-etc">Finding dispatcher object (Event, mutex, etc…)</h4>
+<ul>
+  <li>Finding the usermode process
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>!process 0 0 lsass.exe
+</code></pre></div>    </div>
+  </li>
+  <li>After finding the process address, list threads info and check those DISPATCHER_OBJECT
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>!process ffff8005bd42c080 6
+</code></pre></div>    </div>
+    <p><img src="/assets/images/2024-01-31-windbgProcessThreadinfo.png" alt="" /></p>
+  </li>
+  <li>Checking the DISPATCHER_OBJECT HEADER
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>dt nt!_DISPATCHER_HEADER ffff8005b84bd5a0
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<p><img src="/assets/images/2024-01-31-DISPATCHER_OBJECT.png" alt="" /></p>
+
+<h4 id="finding-the-object-with-the-name">Finding the object with the name</h4>
+<ul>
+  <li>Given a object name
+```
+kd&gt; !object \SECURITY\LSA_AUTHENTICATION_INITIALIZED
+Object: ffff8005b84bd5a0  Type: (ffff8005b84c1f00) Event
+  ObjectHeader: ffff8005b84bd570 (new version)
+  HandleCount: 1  PointerCount: 32770
+  Directory Object: ffffcc0a23c1c770  Name: LSA_AUTHENTICATION_INITIALIZED</li>
+</ul>
+
+<p>```</p>
+<ul>
+  <li>
+    <p>Highlight the Object address by <code class="language-plaintext highlighter-rouge">Crtl + Left Click</code> on the address <code class="language-plaintext highlighter-rouge">ffff8005b84bd5a0</code></p>
+  </li>
+  <li>
+    <p>Search the handle table <code class="language-plaintext highlighter-rouge">!findhandle ffff8005b84bd5a0</code>
+<img src="/assets/images/2024-01-31-0x614.png" alt="" /></p>
+  </li>
+  <li>Validate the handle
+<img src="/assets/images/2024-01-31-handle.png" alt="" /></li>
+  <li>Directory object
+<img src="/assets/images/2024-01-31-ObjectDirectory.png" alt="" /></li>
+</ul>

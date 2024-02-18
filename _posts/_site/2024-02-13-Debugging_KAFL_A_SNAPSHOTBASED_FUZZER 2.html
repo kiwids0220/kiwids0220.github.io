@@ -1,0 +1,33 @@
+<h3 id="qemu-references">QEMU references</h3>
+
+<h3 id="getting-a-full-system-dump-while-fuzzing">Getting a full system dump while fuzzing</h3>
+
+<p>The kAFL patches the monitor/GUI interface when it starts, so we can’t really utilize the qemu monitor command line to snatch a full system memory dump while the fuzzer is running.</p>
+
+<h3 id="pausing-fuzzer-and-collecting-memory-dump">Pausing Fuzzer and Collecting memory dump</h3>
+
+<p>You can technically “pause” the fuzzer and get your system dump there.</p>
+
+<p>To make sure the Windows guest vm is able to collect a full system memory dump in QEMU, we need to make sure that it installs the <code class="language-plaintext highlighter-rouge">FwCfg driver</code> which is included in the <code class="language-plaintext highlighter-rouge">virt-io</code> ISO installer, for more detailed instruction, I found this blog very helpful <a href="https://daynix.github.io/2023/02/19/Guest-Windows-debugging-and-crashdumping-under-QEMU-KVM-dump-guest-memory-vmcoreinfo-and-virtio-win.html">Guest Windows debugging and crashdumping under QEMU/KVM: dump-guest-memory, vmcoreinfo and virtio-win</a></p>
+
+<p>Well the trick to “pause” the fuzzer is simply reapplying what I talked about in the <a href="../2024-01-31-Debugging_KAFL_A_SNAPSHOTBASED_FUZZER">Part I </a> with another trick - using socat. The details is documented <a href="https://unix.stackexchange.com/questions/426652/connect-to-running-qemu-instance-with-qemu-monitor">QEMU monitor with socat</a>.</p>
+
+<p>Here is how you do it:</p>
+<ul>
+  <li>We are still gonna run the same command line argument with our GDB/Pwndbg, but this time adding <code class="language-plaintext highlighter-rouge">-device vmcoreinfo --monitor unix:qemu-monitor-socket,server,nowait</code> at the end</li>
+</ul>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>gdb --args "./x86_64-softmmu/qemu-system-x86_64" -enable-kvm -machine kAFL64-v1 -cpu kAFL64-Hypervisor-v1,+vmx -no-reboot -net none -display none -chardev socket,server,id=nyx_socket,path=/tmp/kafl_kiwi/interface_0 -device nyx,chardev=nyx_socket,workdir=/tmp/kafl_kiwi,worker_id=0,bitmap_size=65536,input_buffer_size=131072 -device isa-serial,chardev=kafl_serial -chardev file,id=kafl_serial,mux=on,path=/tmp/kafl_kiwi/serial_00.log -m 4096 -drive file=/home/kiwi/.local/share/libvirt/images/windows_x86_64_vagrant-kafl-windows.img -fast_vm_reload path=/tmp/kafl_kiwi/snapshot/,load=off -device vmcoreinfo --monitor unix:qemu-monitor-socket,server,nowait
+</code></pre></div></div>
+<ul>
+  <li>Kick off kAFL fuzzer frontend (patching out the subprocess.run that kick off another QEMU instance because we are doing it with gdb already)</li>
+  <li>After the fuzzing loop starts, hit <code class="language-plaintext highlighter-rouge">Crtl + C</code> in gdb</li>
+  <li>Go into the gdb directly, and connect to the QEMU monitor using <code class="language-plaintext highlighter-rouge">socat -,echo=0,icanon=0 unix-connect:qemu-monitor-socket</code></li>
+  <li>Run <code class="language-plaintext highlighter-rouge">dump-guest-memory -w memory.dmp</code> in the monitor CLI</li>
+  <li>Continue the execution in gdb</li>
+</ul>
+
+<p>After that you should be able to collect a full system dump</p>
+
+<p><img src="/assets/images/2024-01-31-systemdump.png" alt="" /></p>
+
