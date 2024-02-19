@@ -35,7 +35,7 @@ type = struct fast_reload_s {
 
 ## Useful Windbg command
 
-#### Finding dispatcher object (Event, mutex, etc...)
+### Finding dispatcher object (Event, mutex, etc...)
 - Finding the usermode process 
 ```
 !process 0 0 lsass.exe
@@ -52,7 +52,7 @@ dt nt!_DISPATCHER_HEADER ffff8005b84bd5a0
 
 ![](/assets/images/2024-01-31-DISPATCHER_OBJECT.png)
 
-#### Finding the object with the name
+### Finding the object with the name
 - Given a object name
     ```
     kd> !object \SECURITY\LSA_AUTHENTICATION_INITIALIZED
@@ -72,7 +72,7 @@ dt nt!_DISPATCHER_HEADER ffff8005b84bd5a0
 ![](/assets/images/2024-01-31-ObjectDirectory.png)
 
 
-#### Checking Nt!_KTHREAD for objects waiting
+### Checking Nt!_KTHREAD for objects waiting
 ```
 kd> dx -id 0,0,ffff8005bd42c080 -r1 ((ntdll!_KTHREAD *)0xffff8005bd393080)
 ((ntdll!_KTHREAD *)0xffff8005bd393080)                 : 0xffff8005bd393080 [Type: _KTHREAD *]
@@ -104,7 +104,7 @@ Object: ffff8005b84bd5a0  Type: (ffff8005b84c1f00) Event
 
 
 ```
-#### Checking NT!_DISPACTHER_HEADER for thread waiting
+### Checking NT!_DISPACTHER_HEADER for thread waiting
 ```
 dt -r1 nt!_KEVENT ffff8005b84bd5a0 () Recursive: [ -r1 -r2 -r ] Verbose Normal dt
 ==================================================================================
