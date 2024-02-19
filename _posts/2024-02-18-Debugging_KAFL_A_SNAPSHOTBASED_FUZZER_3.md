@@ -52,11 +52,11 @@ We found the same thread that was running our harness, and now let's list more d
 Now we can further inspect the `Object` by following the link of the address pointing to our `NotificationEvent`. The `WaitBlockList` is a field of `nt!_THREAD` struct which specifies a list of synchronization object that the thread is waiting on, find more info [here](https://codemachine.com/articles/kernel_structures.html).
 ![](/assets/images/02-18-20242024-02-18-Debugging_KAFL_A_SNAPSHOTBASED_FUZZER_3-7.png)
 
-### kAFL Timeout
+## kAFL Timeout
 Perhaps it was too early for the Event to be set for listening or the thread that's supposed to signal the Event hasn't done so (because of the "hacky" way I injected my harness), our harness thread was "hanging" at this point. Since kAFL is a snapshot-based fuzzer, it utilize `QEMU-Nyx` to achieve **rapid VM reload** at the point where the system snapshot was taken and when the execution ends. kAFL also specifies **soft/hard timeouts** for execution, if harness thread is **blocked/put into a wait state**, and if the **thread was blocked for the duration that's longer than the timeout**, then the **VM will be reset by the fuzzer**. In this case, our `Event` was not signaled which caused our harness thread "hangs" virtually forever and  kAFL resetted the VM, the infinite loop keeps on going...
 
 
-### Closing 
+## Closing 
 
 It was very interesting diving into the fuzzer and troubleshoot our harness problem. This whole journey sparked my interested in Fuzzing, Hypervisor studies and I am excited for the future blog posts! 
 
