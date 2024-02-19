@@ -26,7 +26,7 @@ After that, should be easy to compare all the files that `Nyx` has added or modi
 
 ## Where Can I Start?
 
-Well, following my [Debugging kAFL series]({{ site.baseurl }}{% post_url 2024-02-13-Debugging_KAFL_A_SNAPSHOTBASED_FUZZER %}), you know we have a example that we can debug and now it's just a matter of stepping through the source code and learn some more about `QEMU` and `Nyx` (two bird with one stone).
+Well, following my [Debugging kAFL series]({{ site.baseurl }}{% post_url 2024-01-31-Debugging_KAFL_A_SNAPSHOTBASED_FUZZER %}), you know we have a example that we can debug and now it's just a matter of stepping through the source code and learn some more about `QEMU` and `Nyx` (two bird with one stone).
 
 This time, I will not use `GDB` to debug but rather I will use VSCode to play on easy mode... The setup is quite simple, compile the `QEMU-Nyx` with 
 ```sh
