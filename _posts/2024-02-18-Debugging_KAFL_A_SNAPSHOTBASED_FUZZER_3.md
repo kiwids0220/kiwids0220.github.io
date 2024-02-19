@@ -2,12 +2,8 @@
 layout: post
 title: Debugging kAFL, A Snapshot-based Fuzzer - Part III
 date: 2024-02-18
-categories:
-  - Virtualization
-  - QEMU-NYX
-  - kAFL
-tags:
-  - fuzz
+categories: [Virtualization, Nyx, kAFL]
+tags: [fuzz]
 ---
 
 ## Debugging the Windows Dump?
