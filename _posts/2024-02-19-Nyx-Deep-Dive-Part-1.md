@@ -93,7 +93,7 @@ We will again use kAFL as our "QEMU-Nyx client" to initiate all workflow for us 
 {: .prompt-tip }
 
 > NOTE:  I had this trouble when I was inspecting the `global_state` global variable, but however, VS Code mapped the variable to another struct that's in the original QEMU source code and I had to rename the Nyx's global_state variable to something else to avoid name collision
->  {: .prompt-warning }
+{: .prompt-warning }
 
 
 # Putting Everything Together
