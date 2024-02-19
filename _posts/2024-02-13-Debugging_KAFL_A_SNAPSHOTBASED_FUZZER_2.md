@@ -5,8 +5,6 @@ date: 2024-02-13
 categories: [Virtualization, QEMU-NYX, kAFL]
 tags : [fuzz]
 ---
-### QEMU references
-
 ### Getting a full system dump while fuzzing
 
 The kAFL patches the monitor/GUI interface when it starts, so we can't really utilize the qemu monitor command line to snatch a full system memory dump while the fuzzer is running.
