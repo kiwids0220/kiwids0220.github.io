@@ -20,8 +20,8 @@ I figured the best way to learn what modification that the `Nyx` has made on top
 {: .prompt-tip }
 
 After that, should be easy to compare all the files that `Nyx` has added or modified, for example `Capstonev4`, `Nyx` folders appear as added folders
-![](../assets/images/02-19-20242024-02-19-Nyx-Deep-Dive-Part-1.png)
-![](../assets/images/02-19-20242024-02-19-Nyx-Deep-Dive-Part-1-1.png)
+![](/assets/images/02-19-20242024-02-19-Nyx-Deep-Dive-Part-1.png)
+![](/assets/images/02-19-20242024-02-19-Nyx-Deep-Dive-Part-1-1.png)
 
 
 ## Where Can I Start?
@@ -82,9 +82,9 @@ Adding a configuration file into VS Code is simple enough, ask ChatGPT to conver
 ## Okay, Client
 
 We can now run the `QEMU-Nyx`  by starting the debug session, and set a break point at `main()` in `vl.c` 
-![](../assets/images/02-19-20242024-02-19-Nyx-Deep-Dive-Part-1-3.png)
+![](/assets/images/02-19-20242024-02-19-Nyx-Deep-Dive-Part-1-3.png)
 In VSCode debug mode and we will now get all the symbol information and the ability to inspect variables within VS Code. Shoutout to Microsoft VSCode dev team!
-![](../assets/images/02-19-20242024-02-19-Nyx-Deep-Dive-Part-1-2.png)
+![](/assets/images/02-19-20242024-02-19-Nyx-Deep-Dive-Part-1-2.png)
 
 Well, we got our QEMU-Nyx running, but it's still waiting on a actual `client` to supply the corpus and instruct the QEMU-Nye instance what to do.
 
@@ -99,11 +99,11 @@ We will again use kAFL as our "QEMU-Nyx client" to initiate all workflow for us 
 # Putting Everything Together
 
 1. Start the kAFL Fuzzer frontend 
-	![](../assets/images/02-19-20242024-02-19-Nyx-Deep-Dive-Part-1-4.png)
+	![](/assets/images/02-19-20242024-02-19-Nyx-Deep-Dive-Part-1-4.png)
 2. Start the QEMU-Nyx 
-	![](../assets/images/02-19-20242024-02-19-Nyx-Deep-Dive-Part-1-5.png)
+	![](/assets/images/02-19-20242024-02-19-Nyx-Deep-Dive-Part-1-5.png)
 3. Continue the execution of `QEMU-Nyx` and check the `workdir`to see if the `interface_X` socket is there. This is needed by kAFL to initialize the client handshake.
-	![](../assets/images/02-19-20242024-02-19-Nyx-Deep-Dive-Part-1-6.png)
+	![](/assets/images/02-19-20242024-02-19-Nyx-Deep-Dive-Part-1-6.png)
 4. Set desired breakpoints in QEMU-Nyx and continue kAFL execution. Ex. I set a breakpoint at nyx_interface device_realize function
-	![](../assets/images/02-19-20242024-02-19-Nyx-Deep-Dive-Part-1-7.png)
+	![](/assets/images/02-19-20242024-02-19-Nyx-Deep-Dive-Part-1-7.png)
 5.  Have fun learning about QEMU and Nyx
