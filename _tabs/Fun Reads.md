@@ -18,6 +18,8 @@ tag: [QEMU, System Dyanmic Analysis, Reverse Debugging]
 
 [Bugs on the Windshield: Fuzzing the Windows Kernel](https://research.checkpoint.com/2020/bugs-on-the-windshield-fuzzing-the-windows-kernel/)
 
+[Good Blogposts about Virtualization](https://terenceli.github.io/tags.html#%E8%99%9A%E6%8B%9F%E5%8C%96-ref)
+
 # Helpful Servers
 
 
