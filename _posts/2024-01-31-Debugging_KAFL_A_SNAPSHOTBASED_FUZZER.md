@@ -2,7 +2,7 @@
 layout: post
 title: Debugging kAFL, A Snapshot-based Fuzzer - Part I
 date: 2024-01-31
-categories: [Virtualization, Nyx, kAFL]
+categories: [Virtualization, kAFL]
 tags : [fuzz]
 ---
 ### kAFL 

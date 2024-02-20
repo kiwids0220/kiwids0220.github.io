@@ -2,7 +2,7 @@
 layout: post
 title: Debugging kAFL, A Snapshot-based Fuzzer - Part II
 date: 2024-02-13
-categories: [Virtualization, Nyx, kAFL]
+categories: [Virtualization, kAFL]
 tags : [fuzz]
 ---
 ### Getting a full system dump while fuzzing
