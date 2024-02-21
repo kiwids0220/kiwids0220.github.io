@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Deep Diving into Nyx Part II - Nyx Device Initialization
+title: Deep Diving into Nyx Part II - QEMU QOM Initialization
 date: 2024-02-19
 categories:
   - Virtualization
