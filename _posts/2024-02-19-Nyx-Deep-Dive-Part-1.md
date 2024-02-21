@@ -96,7 +96,7 @@ We will again use kAFL as our "QEMU-Nyx client" to initiate all workflow for us 
 {: .prompt-warning }
 
 
-# Putting Everything Together
+## Putting Everything Together
 
 1. Start the kAFL Fuzzer frontend 
 	![](/assets/images/02-19-20242024-02-19-Nyx-Deep-Dive-Part-1-4.png)
