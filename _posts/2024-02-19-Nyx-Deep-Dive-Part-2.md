@@ -8,6 +8,7 @@ categories:
   - Internal
 tags:
   - fuzz
+  - QEMU
 ---
 # QEMU  Initialization
 
