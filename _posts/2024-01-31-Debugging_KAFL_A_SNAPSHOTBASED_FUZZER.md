@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Debugging kAFL, A Snapshot-based Fuzzer - Part I
+title: Debugging kAFL, A Snapshot-based Fuzzer
 date: 2024-01-31
 categories: [Virtualization, kAFL]
 tags : [fuzz]
