@@ -1,0 +1,13 @@
+# Notes 
+
+## Spin Locks
+
+	- Spin lock are used to lock shared data to make sure there’s only one thread executed by one processor to access it.
+
+	- Dispatcher objects are provided by the kernel to the Executives
+
+	-Dispatche Obj vs Spin lock:
+	- Spin lock will keep trying to require the lock, dispatcher object will put the thread to suspended state
+
+Mutex vs Event
+	-  Event doesn’t provide the mutual exclusiveness between threads executed by processors while Mutex and Spin locks do 
