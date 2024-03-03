@@ -5,9 +5,6 @@ categories: [Fun Reads]
 tag: [QEMU, System Dyanmic Analysis, Reverse Debugging]
 ---
 
-# Fun Reads
-
-
 [Deterministic Replay of System’s Execution with Multi-target QEMU Simulator for Dynamic Analysis and Reverse Debugging](https://www.ispras.ru/en/publications/deterministic_replay_of_system_s_execution_with_multi_target_qemu_simulator_for_dynamic_analysis.pdf)
 
 [Hypervisor From Scratch Series by Rayanfam](https://rayanfam.com/topics/hypervisor-from-scratch-part-1/)
