@@ -63,6 +63,9 @@ Mutex vs Event
 - ## Driver Extension - Plug and Play
 	- https://www.vergiliusproject.com/kernels/x86/Windows%20XP/SP3/_DRIVER_EXTENSION
 
+  - FastIoDispatch, a way to avoid slow method o using packet-based I/O by allowing NT I/O Manager to **directly invoke** the file system dispatch routines without IRP structure.
+
+
 ```C
 typedef struct _DRIVER_OBJECT {
   CSHORT             Type;
@@ -82,8 +85,6 @@ typedef struct _DRIVER_OBJECT {
   PDRIVER_DISPATCH   MajorFunction[IRP_MJ_MAXIMUM_FUNCTION + 1];
 } DRIVER_OBJECT, *PDRIVER_OBJECT;
 ```
-
-- FastIoDispatch, a way to avoid slow method o using packet-based I/O by allowing NT I/O Manager to **directly invoke** the file system dispatch routines without IRP structure.
 
 
 - ## Device Object
