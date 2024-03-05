@@ -1,5 +1,5 @@
 ---
-icon: fas fa-stream
+icon: fa-regular fa-face-smile
 order: 5
 categories: [Fun Reads]
 tag: [QEMU, System Dyanmic Analysis, Reverse Debugging]
