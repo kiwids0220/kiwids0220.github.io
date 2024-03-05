@@ -62,6 +62,7 @@ Mutex vs Event
 
 - ## Driver Extension - Plug and Play
 	- https://www.vergiliusproject.com/kernels/x86/Windows%20XP/SP3/_DRIVER_EXTENSION
+
 ```C
 typedef struct _DRIVER_OBJECT {
   CSHORT             Type;
