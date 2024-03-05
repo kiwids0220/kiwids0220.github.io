@@ -1,7 +1,7 @@
 ---
 layout: notes
 refactor: true
-icon: fas fa-archive
+icon: fa-regular fa-note-sticky
 order : 6
 ---
 
