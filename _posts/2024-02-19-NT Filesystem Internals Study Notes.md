@@ -66,7 +66,7 @@ Mutex vs Event
   - FastIoDispatch, a way to avoid slow method o using packet-based I/O by allowing NT I/O Manager to **directly invoke** the file system dispatch routines without IRP structure.
 
 
-```C
+```c
 typedef struct _DRIVER_OBJECT {
   CSHORT             Type;
   CSHORT             Size;
