@@ -450,7 +450,18 @@ typedef struct _IO_STACK_LOCATION {
 
 
 ## Processing an IRP
-- Obtains a pointer to current stack location
-- process IRP 
-- completes the I/O request packet
+
+[MSDN Queuing and Dequeuing IRPs](https://learn.microsoft.com/en-us/windows-hardware/drivers/kernel/queuing-and-dequeuing-irps)
+
+- ### On Low-Level Drivers
+	- I/O Manager calls to a driver's dispatch routine first
+	- `IoStartPacket` routine is called by the driver's dispatch routines
+	- The `IoStartPacket()` routine adds the IRP to the device's system-supplied device queue or, if the queue is empty, immediately calls the driver's StartIo routine to process the IRP.
+	- Obtains a pointer to current stack location
+	- process IRP 
+	- completes the I/O request packet
 ![](/assets/images/03-04-20242024-02-19-NT%20Filesystem%20Internals%20Study%20Notes-3.png)
+
+- ### On High-Level Drivers
+	- Not common to have a `StartIo` routine, usually self-contained internal `Queuing and Dequeuing routine`. 
+	- If it does, similar to low-level driver described above
