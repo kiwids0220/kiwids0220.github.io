@@ -225,7 +225,7 @@ typedef struct _IRP {
 		-  NOTE:  The number of stack locations allocated for an IRP depends on `StackSize` each attached device incremented it byu 1 - one for initial device driver and one for every filter driver..
 		- `CurrentStackLocation` is inited in the IRP header with `StackCount + 1` - which points to an invalid stack location pointer value. to dispatch an IRP to the next driver, kernel component must always get a pointer to the next stack location and then fill in the appropriate parameters for the request . When the IRP is dispatched, the next stack lcoation will be `CurrentStackLocation - 1` .
 			- The actual current stack location is in `tail.Overlay.CurrentStackLocation`
-		![](../assets/images/03-04-20242024-02-19-NT%20Filesystem%20Internals%20Study%20Notes-2.png)
+		![](/assets/images/03-04-20242024-02-19-NT%20Filesystem%20Internals%20Study%20Notes-2.png)
 ```c
 typedef struct _IO_STACK_LOCATION {
   UCHAR                  MajorFunction;
@@ -451,4 +451,4 @@ typedef struct _IO_STACK_LOCATION {
 - Obtains a pointer to current stack location
 - process IRP 
 - completes the I/O request packet
-![](../assets/images/03-04-20242024-02-19-NT%20Filesystem%20Internals%20Study%20Notes-3.png)
+![](/assets/images/03-04-20242024-02-19-NT%20Filesystem%20Internals%20Study%20Notes-3.png)
