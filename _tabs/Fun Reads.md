@@ -17,8 +17,10 @@ tag: [QEMU, System Dyanmic Analysis, Reverse Debugging]
 
 [Good Blogposts about Virtualization](https://terenceli.github.io/tags.html#%E8%99%9A%E6%8B%9F%E5%8C%96-ref)
 
+[Books and Slides For Windows Internals](https://empyreal96.github.io/nt-info-depot/WinBooks.html)
 # Helpful Servers
 
 
 [OALabs](https://discord.gg/oalabs)
+
 [Awesome Fuzzing](https://discord.gg/BynDCtvtbT)
