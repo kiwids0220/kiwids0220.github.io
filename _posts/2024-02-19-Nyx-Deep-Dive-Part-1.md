@@ -7,7 +7,7 @@ categories:
   - Nyx
   - Internal
 tags:
-  - fuzz
+  - QEMU
 ---
 # The Setup
 ## Clone & Compare

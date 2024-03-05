@@ -3,6 +3,7 @@ layout: post
 title: Stalking inside of your Chromium Browser
 date: 2022-12-01
 categories: [redteam]
+tags: [redteam]
 ---
 ### Revisiting Remote Debugging
 
