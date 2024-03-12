@@ -8,6 +8,10 @@ categories:
   - Internal
 tags:
   - QEMU
+image:
+  path: "assets/images/AIgen1.jpg"
+  src: "assets/images/AIgen1.jpg"
+
 ---
 # The Setup
 ## Clone & Compare
