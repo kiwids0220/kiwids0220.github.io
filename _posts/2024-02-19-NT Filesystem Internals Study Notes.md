@@ -5,6 +5,10 @@ date: 2024-03-04
 categories: Notes
 tags:
   - notes
+
+image:
+  path: "assets/images/03-04-20242024-02-19-NT Filesystem Internals Study Notes.png"
+  src: "assets/images/03-04-20242024-02-19-NT Filesystem Internals Study Notes.png"
 ---
 # The Book
 
