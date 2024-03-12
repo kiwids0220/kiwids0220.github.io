@@ -7,13 +7,9 @@ tags:
   - notes
 
 image:
-  path: "assets/images/03-04-20242024-02-19-NT Filesystem Internals Study Notes.png"
-  src: "assets/images/03-04-20242024-02-19-NT Filesystem Internals Study Notes.png"
+  path: "assets/images/FileSystemInternalsBook.png"
+  src: "assets/images/FileSystemInternalsBook.png"
 ---
-# The Book
-
-![](/assets/images/03-04-20242024-02-19-NT%20Filesystem%20Internals%20Study%20Notes.png)
-
 
 # Notes 
 
