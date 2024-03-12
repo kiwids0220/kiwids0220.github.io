@@ -4,6 +4,10 @@ title: Stalking inside of your Chromium Browser
 date: 2022-12-01
 categories: [redteam]
 tags: [redteam]
+image:
+  path: "assets/images/AIgen3.jpg"
+  src: "assets/images/AIgen3.jpg"
+
 ---
 ### Revisiting Remote Debugging
 
