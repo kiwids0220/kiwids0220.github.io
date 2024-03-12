@@ -4,6 +4,10 @@ title: Useful Pwndbg & WinDbg Commands
 date: 2024-02-11
 tags: [notes, Pwndbg, WinDbg]
 categories: [Debugging]
+image:
+  path: "assets/images/windbgOldIcon.jpg"
+  src: "assets/images/windbgOldIcon.jpg"
+
 ---
 ### Windbg to Pwndbg
 Thanks to the Pwndbg dev team, users coming from Windbg will find pwndbg quite handy with the `db, dt, dq, dq, etc...` flags in Pwndbg. I really like the `dt` flag that will print out the type given a variable name.
