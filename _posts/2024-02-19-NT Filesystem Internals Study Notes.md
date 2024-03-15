@@ -5,10 +5,6 @@ date: 2024-03-04
 categories: Notes
 tags:
   - notes
-
-image:
-  path: "assets/images/FileSystemInternalsBook.png"
-  src: "assets/images/FileSystemInternalsBook.png"
 ---
 
 # Notes 

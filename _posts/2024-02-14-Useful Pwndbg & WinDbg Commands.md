@@ -4,9 +4,6 @@ title: Useful Pwndbg & WinDbg Commands
 date: 2024-02-11
 tags: [notes, Pwndbg, WinDbg]
 categories: [Debugging]
-image:
-  path: "assets/images/windbgOldIcon.jpg"
-  src: "assets/images/windbgOldIcon.jpg"
 
 ---
 ### Windbg to Pwndbg
