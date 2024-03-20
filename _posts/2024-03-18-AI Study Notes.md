@@ -1,4 +1,3 @@
-
 ---
 layout: post
 title: Dive into Deep Learning Study Notes
@@ -6,8 +5,6 @@ categories: Notes
 tags:
   - notes
 ---
-
-
 
 ### Four Main Categories
 
