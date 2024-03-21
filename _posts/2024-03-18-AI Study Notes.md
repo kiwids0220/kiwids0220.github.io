@@ -119,5 +119,5 @@ Usually based on an popular approach called ==gradient descent==
 	- interacts with env and **Take Actions*** which actually impacts the environment. (e.g., AlphaGo)
 	- Solved the problem where the **agent receives observation*** from the environment and must chooser **an corrsponding action***
 	- Goal of the learning is to **provide a good mapping from observation of the environment to actions***
-![](../assets/images/03-20-20242024-03-18-AI%20Study%20Notes-2.png)
-![](../assets/images/03-20-20242024-03-18-AI%20Study%20Notes-3.png)
+![](/assets/images/03-20-20242024-03-18-AI%20Study%20Notes-2.png)
+![](/assets/images/03-20-20242024-03-18-AI%20Study%20Notes-3.png)
