@@ -22,7 +22,7 @@ QEMU before starts the main() function will initialize these devices into its co
 ![](/assets/images/02-19-20242024-02-19-Nyx-Deep-Dive-Part-2-1.png)
 
 The list is initialized by all `type_init()` macros which will be called before `main()` thanks for the `constructor` attribute  :
-```
+```c
 #define type_init(function) module_init(function, MODULE_INIT_QOM)
 #define module_init(function, type)                                         \
 static void __attribute__((constructor)) do_qemu_init_ ## function(void)    \
@@ -44,7 +44,7 @@ After the list has been initialized. The class will be instantiated in `vl.c:mai
 During `select_machine()` call, all the classes that has registered with QEMU will be initialized by caling their corrsponding `##_class_init()` funtions. Now with all class template has been initialized, user can now instantiate them.
 ## QEMU Chardev Instantiation 
 Following the classes initialization, the `main()` continues to parse the user supplied devices/chardevs arguments . In the kAFL case, the first is `"-chardev", "socket,server,id=nyx_socket,path=/tmp/kafl_kiwi/interface_0"`, which the `main()` has a block for initializing all `chardev` the user want
-```
+```c
 qemu_opts_foreach(qemu_find_opts("chardev"),chardev_init_func, NULL, &error_fatal);
 ```
 
@@ -138,6 +138,7 @@ out:
 }
 ```
 `qemu_chr_new_from_opts` will call multiple functions to setup our `ChardevBackend` and finally assemble the backend device with our chardev frontend. Here is the breakdown of each function:
+
 ```c
 ChardevBackend *qemu_chr_parse_opts(QemuOpts *opts, Error **errp)
 {
