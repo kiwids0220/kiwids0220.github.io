@@ -5,7 +5,7 @@ categories: Notes
 tags:
   - notes
 ---
-
+# Introduction
 ### Four Main Categories
 
 - Analyze pass data, predict future outcome - **speech recognition**
@@ -121,3 +121,39 @@ Usually based on an popular approach called ==gradient descent==
 	- Goal of the learning is to **provide a good mapping from observation of the environment to actions***
 ![](/assets/images/03-20-20242024-03-18-AI%20Study%20Notes-2.png)
 ![](/assets/images/03-20-20242024-03-18-AI%20Study%20Notes-3.png)
+
+
+# Preliminaries
+
+## Ndarray
+
+#tensor
+- `Tensor` in PyTorch and TensorFlow
+- `ndarray` in MXNet
+- NumPy's `ndarray`
+ First, the tensor class supports automatic differentiation. Second, it leverages GPUs to accelerate numerical computation, whereas NumPy only runs on CPUs.
+
+### Tensor Operations
+```python
+x = torch.arange(12, dtype=torch.float32)
+x.numel()
+12
+## Access Shape of the tenso
+x.shape
+
+## Reshape the vector into a matrice
+x_reshaped=x.reshape(3,4)
+tensor([[ 0.,  1.,  2.,  3.],
+        [ 4.,  5.,  6.,  7.],
+        [ 8.,  9., 10., 11.]])
+torch.zeros((2,3,4))
+
+torch.tensor([[2, 1, 4, 3], [1, 2, 3, 4], [4, 3, 2, 1]])
+
+```
+
+```python
+x = torch.tensor([1.0, 2, 4, 8])
+y = torch.tensor([2, 2, 2, 2])
+x + y, x - y, x * y, x / y, x ** y
+```
