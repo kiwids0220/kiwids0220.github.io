@@ -2,7 +2,7 @@
 layout: post
 title: NT Filesystem Internals Study Notes
 date: 2024-03-04
-categories: Notes
+categories: [NT FileSystem]
 tags:
   - notes
 ---

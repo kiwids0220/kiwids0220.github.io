@@ -42,16 +42,15 @@ refactor: true
 <div id="post-list" class="flex-grow-1 px-xl-1">
 
     {% assign found_notes = false %}
-
     {% for post in site.posts %}
         {% for tag in post.tags %}
             {% if tag == "notes" %}
                 {% assign found_notes = true %}
                 {% break %}
-            {% elsif tag == "devops" %}
+            {% elif tag == "devops" %}
                 {% assign found_notes = true %}
                 {% break %}
-            {% elsif tag == "ideas" %}
+            {% elif tag == "ideas" %}
                 {% assign found_notes = true %}
                 {% break %}
             {% endif %}

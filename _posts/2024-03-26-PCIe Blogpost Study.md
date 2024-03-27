@@ -1,7 +1,7 @@
 ---
 layout: post
 title: PCIe Study Notes
-categories: [notes, PCIe]
+categories: [PCIe]
 tags:
   - notes
 ---
