@@ -7,7 +7,6 @@ tags: [redteam]
 image:
   path: "assets/images/AIgen3.jpg"
   src: "assets/images/AIgen3.jpg"
-
 ---
 ### Revisiting Remote Debugging
 
