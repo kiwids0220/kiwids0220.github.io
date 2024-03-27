@@ -8,14 +8,23 @@ tag: [QEMU, System Dyanmic Analysis, Reverse Debugging, Deep Learning, LLMs]
 # Deep Learning & LLMs
 
 [OpenAI Text Tokenizer](https://platform.openai.com/tokenizer)
+
 [Open Source LLMs Leaderboard](https://huggingface.co/spaces/HuggingFaceH4/open_llm_leaderboard)
+
 [LocalLLaMA Reddit](https://www.reddit.com/r/LocalLLaMA/)
+
 [LangChain Framework](https://github.com/langchain-ai/langchain)
+
 [LLaMA C++ Interface](https://github.com/ggerganov/llama.cpp)
+
 [LLaMA CPP-Python Interface](https://github.com/abetlen/llama-cpp-python)
+
 [LLaMA Data Framework](https://github.com/run-llama/llama_index)
+
 [Offensive ML Tool](https://github.com/dreadnode/rigging)
+
 [Local LLM Studio](https://lmstudio.ai/)
+
 
 
 # Books 
