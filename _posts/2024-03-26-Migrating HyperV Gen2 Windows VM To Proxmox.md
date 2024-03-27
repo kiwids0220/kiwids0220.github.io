@@ -4,6 +4,8 @@ title: Migrating HyperV Gen2 Windows 11 VM To Proxmox
 categories: [HyperV]
 tags:
   - devops
+  - HyperV
+  - Proxmox
 ---
 
 ## Prep Work On Windows 11 VM

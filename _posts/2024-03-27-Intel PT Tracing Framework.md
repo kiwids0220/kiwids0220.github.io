@@ -4,6 +4,7 @@ title: Intel PT Tracing Framework
 categories: [IntelPT]
 tags:
   - ideas
+  - IntelPT
 ---
 
 # Intel PT Tracer Framework Written in C++ 
