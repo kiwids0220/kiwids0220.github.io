@@ -48,6 +48,9 @@ refactor: true
             {% if tag == "notes" %}
                 {% assign found_notes = true %}
                 {% break %}
+            {% elsif tag == "devops" %}
+                {% assign found_notes = true %}
+                {% break %}
             {% endif %}
         {% endfor %}
         {% if found_notes %}
