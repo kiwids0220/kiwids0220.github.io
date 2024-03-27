@@ -1,7 +1,7 @@
 ---
 layout: devops
 refactor: true
-icon: fa-light fa-server
+icon: fa-solid fa-server
 order : 2
 ---
 

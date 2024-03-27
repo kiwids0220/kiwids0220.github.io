@@ -1,7 +1,7 @@
 ---
 icon: fa-regular fa-face-smile
 order: 5
-categories: [Fun Reads]
+categories: [Useful Links]
 tag: [QEMU, System Dyanmic Analysis, Reverse Debugging, Deep Learning, LLMs]
 ---
 
@@ -25,8 +25,6 @@ tag: [QEMU, System Dyanmic Analysis, Reverse Debugging, Deep Learning, LLMs]
 [Offensive ML Tool](https://github.com/dreadnode/rigging)
 
 [Local LLM Studio](https://lmstudio.ai/)
-
-
 
 # Books 
 [Deterministic Replay of System’s Execution with Multi-target QEMU Simulator for Dynamic Analysis and Reverse Debugging](https://www.ispras.ru/en/publications/deterministic_replay_of_system_s_execution_with_multi_target_qemu_simulator_for_dynamic_analysis.pdf)
