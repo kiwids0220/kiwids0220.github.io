@@ -43,18 +43,13 @@ refactor: true
 
     {% assign found_notes = false %}
     {% for post in site.posts %}
-        {% for tag in post.tags %}
-            {% if tag[0] == "notes" %}
-                {% assign found_notes = true %}
-                {% break %}
-            {% elsif tag[0] == "devops" %}
-                {% assign found_notes = true %}
-                {% break %}
-            {% elsif tag[0] == "ideas" %}
-                {% assign found_notes = true %}
-                {% break %}
-            {% endif %}
-        {% endfor %}
+      {% for tag in post.tags %}
+        {% if tag == "notes" or tag == "devops" or tag == "ideas" %}
+            {% assign found_notes = true %}
+            {% break %}
+        {% endif %}
+      {% endfor %}
+    {% endfor %}
         {% if found_notes %}
             {% assign found_notes = false %}
             {% continue %}
