@@ -43,7 +43,7 @@ refactor: true
 
 {% for tag in site.tags %}
     {% if tag[0] == "notes" %}
-  {% for post in tag[1] %}
+    {% for post in tag[1] %}
   
     <article class="card-wrapper card">
       <a href="{{ post.url | relative_url }}" class="post-preview row g-0 flex-md-row-reverse">
