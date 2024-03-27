@@ -3,7 +3,7 @@ layout: post
 title: Useful Pwndbg & WinDbg Commands
 date: 2024-02-11
 tags: [notes, Pwndbg, WinDbg]
-categories: [Debugging]
+categories: [notes, Debugging]
 
 ---
 ### Windbg to Pwndbg

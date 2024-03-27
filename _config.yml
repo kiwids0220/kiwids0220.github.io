@@ -172,7 +172,6 @@ defaults:
     values:
       swcache: true
 
-
 sass:
   style: compressed
 
@@ -203,3 +202,4 @@ jekyll-archives:
   permalinks:
     tag: /tags/:name/
     category: /categories/:name/
+

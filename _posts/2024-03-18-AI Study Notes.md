@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Dive into Deep Learning Study Notes
-categories: [deeplearning] 
+categories: [notes, deeplearning] 
 tags:
   - notes
 ---
