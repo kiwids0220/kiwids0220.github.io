@@ -92,30 +92,30 @@ Usually based on an popular approach called ==gradient descent==
 ### Kinds of Machine Learning Problems
 
 - [Supervised Learning](https://d2l.ai/chapter_introduction/index.html#supervised-learning) : Feature - label pair, we are the supervisors who provide the model with a dataset consisting of labeled examples.
-	- Regression : When labels (e.g., house selling price) are taken on ***arbitrary numerical values***, and we will work on minimizing the squared error
+	- **Regression** : When labels (e.g., house selling price) are taken on ***arbitrary numerical values***, and we will work on minimizing the squared error
 		- How many hours will this surgery take?
 		- How much rainfall this town have in the next 6 hours
-	- Classification : Identify **one*** category an example belongs, grouping examples into different categories. Seed for a **classifier***. 
+	- **Classification** : Identify **one*** category an example belongs, grouping examples into different categories. Seed for a **classifier***. 
 		- Binary Classification
 		- Multiclass Classification
 		- Hierarchically structures classes
 			- level of classes and sub-classes (dogs, different breeds of dogs)
-	- Tagging : Instead of classifying, predict classes that are not **mutally exclusive*** is called **multilabel classification***
-	- Search : scoring relevant pages and display them with priorities. 
-	- Recommendation Systems : Different than ^ is the emphasis on **personalization*** to specific users.
-	- Sequence Learning : Unlike previous model where the **test example are forgotten after model processing**. This is not ideal for **Processing Videos***  == Each example (frame) might be drastically different; For more time sensitive problems.
+	- **Tagging** : Instead of classifying, predict classes that are not **mutally exclusive*** is called **multilabel classification***
+	- **Search** : scoring relevant pages and display them with priorities. 
+	- **Recommendation Systems** : Different than ^ is the emphasis on **personalization*** to specific users.
+	- **Sequence Learning** : Unlike previous model where the **test example are forgotten after model processing**. This is not ideal for **Processing Videos***  == Each example (frame) might be drastically different; For more time sensitive problems.
 		- Tagging  and Parsing : A sequence of ***aligned text***, tagging the word if they are referring entities or direct objects.
 		- Automaic Speed Recognition: audio recording
 		- Machine Translation: input and output may appear if different order 
-- Unsupervised and Self-Supervised Learning
-	- Clusetering, can we group something together given the 
-	- Subspace Estimation
+- **Unsupervised** and **Self-Supervised** Learning
+	- **Clusetering**, can we group something together given the 
+	- **Subspace Estimation**
 	- causality, probabilistic graphical models 
-- Offline Learning vs Environment aware
+- **Offline Learning** vs **Environment aware**
 	- remember env
 	- determine the env 
 	- shifting dynamics
-- Reinforcement Learning
+- **Reinforcement Learning**
 	- interacts with env and **Take Actions*** which actually impacts the environment. (e.g., AlphaGo)
 	- Solved the problem where the **agent receives observation*** from the environment and must chooser **an corrsponding action***
 	- Goal of the learning is to **provide a good mapping from observation of the environment to actions***
