@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Intel PT Tracing Framework
+categories: [ideas, IntelPT]
 tags:
   - ideas
 ---
