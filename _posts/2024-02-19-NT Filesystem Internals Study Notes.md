@@ -127,7 +127,7 @@ typedef struct _DEVICE_OBJECT {
 
 - ## I/O Request Packets (IRP)
 	- The size of IRP depends on the number of stack location that are required for the IRP
-	- Kernel-mode components besides I/O manager can use the `IoAllocateIrp` tgo request a new IRP struct.
+	- Kernel-mode components besides I/O manager can use the `IoAllocateIrp` to request a new IRP struct.
 
 ```c
 typedef struct _IRP {
