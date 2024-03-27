@@ -5,6 +5,7 @@ categories: [ideas, IntelPT]
 tags:
   - ideas
   - IntelPT
+permalink: /:categories/:year/:month/:day/:title
 ---
 
 # Intel PT Tracer Framework Written in C++ 
