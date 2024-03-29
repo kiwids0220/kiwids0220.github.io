@@ -1,9 +1,9 @@
 ---
 layout: post
-title: Useful Pwndbg & WinDbg Commands
+title: Useful Pwndbg & WinDbg Commands & IDA Pro Scripts
 date: 2024-02-11
-tags: [notes, Pwndbg, WinDbg]
-categories: [Notes, Debugging]
+tags: [notes, Pwndbg, WinDbg, IDA Pro]
+categories: [Notes, Debugging, RE]
 
 ---
 ### Windbg to Pwndbg
@@ -182,7 +182,42 @@ ntdll!_KWAIT_BLOCK
    +0x018 NotificationQueue : 0xffff8005`bd393080 _KQUEUE
    +0x020 Object           : 0xffff8005`b84bd5a0 Void
    +0x028 SparePtr         : (null) 
-
-
 ```
 
+### IDA Pro Scripts
+
+#### Collecting all functions called within a function
+
+```py
+import ida_funcs
+import idautils
+import idaapi
+import idc
+
+def extract_function_name(name):
+    if '@@' in name:
+        return name.split('@@')[0]
+    return name
+
+
+def list_function_calls_within(func_ea):
+    func = ida_funcs.get_func(func_ea)
+    if func is None:
+        print(f"No function found at 0x{func_ea:08X}")
+        return
+
+    func_name = ida_funcs.get_func_name(idc.here())
+    print(f"Function calls within function {func_name} at 0x{func_ea:08X}:")
+    for head in idautils.FuncItems(function_address):
+        for insn in idautils.XrefsFrom(head, idaapi.XREF_FAR):
+            if insn.type == idaapi.fl_CN:
+                called_func = ida_funcs.get_func(insn.to)
+                if called_func:
+                    if "WPP" not in ida_funcs.get_func_name(insn.to):  
+                        print(f"0x{insn.to:08X}: {extract_function_name(ida_funcs.get_func_name(insn.to))}")
+
+# Replace 0x12345678 with the address of the function you want to analyze
+function_address = idc.here()
+list_function_calls_within(function_address)
+
+```
