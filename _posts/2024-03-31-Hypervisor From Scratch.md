@@ -12,7 +12,7 @@ tags:
 
 ### Detect VMX Support
 #virtualmachineextension #vmx
-```c
+```c++
 
 //23.6 DISCOVERING SUPPORT FOR VMX
 
@@ -48,8 +48,7 @@ DetectVmxSupport()
 	- Buffer size `Parameters.DeviceIoControl.InputBufferLength and Parameters.DeviceIoControl.OutputBufferLength`
 	- **Accessing** the buffer goes
 
-```c
-
+```c++
 InBuf  = IrpStack->Parameters.DeviceIoControl.Type3InputBuffer;
 OutBuf = Irp->UserBuffer;
 
@@ -102,7 +101,7 @@ IoFreeMdl(Mdl);
 - There should be equal numbers of VMCSs and VMXON regions as the number of logical processors.
 - Check if VMX operations are supported
 
-```c
+```c++
 BOOLEAN
 IsVmxSupported()
 {
@@ -134,8 +133,8 @@ IsVmxSupported()
 }
 ```
 - Allocating VMCS and VMXON regions
-```c
 
+```c++
 typedef struct _VIRTUAL_MACHINE_STATE
 {
     UINT64 VmxonRegion; // VMXON region
@@ -194,7 +193,7 @@ AsmEnableVmxOperation ENDP
 - `CR0.PE, CR0.NE, CR0.PG, and CR4.VMXE` bit should be 1 to be executed in page-protected mode
 - Writing the `Revision Identifier` from `IA32_VMX_BASIC_MSR` to VMXON Region
 
-```c
+```c++
 typedef union _IA32_VMX_BASIC_MSR
 {
     ULONG64 All;
@@ -226,7 +225,7 @@ IA32_VMX_BASIC_MSR basic = {0};
 
 - `AllocateVmxonRegion` , writes the `IA32_VMX_BASIC_MSR.Fields.RevisionIdentifier` to VMXON region and  turn VMXON
 
-```c
+```c++
 BOOLEAN
 AllocateVmxonRegion(IN VIRTUAL_MACHINE_STATE * GuestState)
 {
@@ -289,7 +288,7 @@ AllocateVmxonRegion(IN VIRTUAL_MACHINE_STATE * GuestState)
 - `AllocateVmxonRegion` , writes the `IA32_VMX_BASIC_MSR.Fields.RevisionIdentifier` to VMCS region and  `VMPTRLD ` sets the current VMCS on a logical processor.
 	- `vmptrst(PA)` sets the current VMCS at the specified PA
 
-```c
+```c++
 BOOLEAN
 AllocateVmcsRegion(IN VIRTUAL_MACHINE_STATE * GuestState)
 {
@@ -351,7 +350,7 @@ AllocateVmcsRegion(IN VIRTUAL_MACHINE_STATE * GuestState)
 ```
 - Turn off VMX
 
-```c
+```c++
 VOID
 TerminateVmx()
 {
