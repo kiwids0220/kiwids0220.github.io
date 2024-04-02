@@ -376,14 +376,34 @@ MmFreeContiguousMemory(PhysicalToVirtualAddress(g_GuestState[i].VmxonRegion));
 
 ##### Active vs. Current 
 - There might be several VMCSs simultaneously in a processor, but just one of them is currently active
-- 
+![](/assets/images/04-02-20242024-03-31-Hypervisor%20From%20Scratch.png)
 ##### VMCLEAR, VMPTRLD, VMREAD, and VMWRITE instructions.
 - VMLAUNCH, VMREAD, VMRESUME, and VMWRITE instructions operate only on the current VMCS
 	- VMLAUNCH can only execute if the VMCS is cleared
 	- VMCLEAR can only execute on VMCS that's launched.
 ![](/assets/images/04-01-20242024-03-31-Hypervisor%20From%20Scratch.png)
+
+
+
+
+#### Extended Page Table (EPT)
+##### 4-Level Paging
+- Virtual address breaks into 6 parts. only 5 parts are used to determine the physical address
+![](/assets/images/04-02-20242024-03-31-Hypervisor%20From%20Scratch-1.png)
+1. PML4 Index determines the index inside of the PML4 table
+	- After finding the entry in the PML4 table, look for **Paging Structure Entry** and its **Page Frame Number (PFN)** 
+	- Multiply `0x1000` by the PFN to find the corrsponding **Page Directory Pointer Table (PDPT)**
+![](/assets/images/04-02-20242024-03-31-Hypervisor%20From%20Scratch-3.png)
+2. Use the **Page frame number** to locate the entry inside of **Page Directory Pointer Table** and use **PDPT Index from virtual address** to locate the index of pointer inside of **PDPT**
+	- If the entry has `ULONG64 PageSize : 1;` set to 1, then it *can* map to 1 GB page, otherwise 2MB 
+	- Look for PGN again, muliply by `0x1000`
+
+3. Now we arrives at **Page Directory (PD)**, using **PD Index** to locate the PD entry
+	- find **PFN** again, multiply by `0x1000`
+
+4. Arrive at **Page Table (PT)**, using **PT Index** to locate the PT Entry
+	- Use **PFN** again, to find the **actual physical page** 
+	- Applying the **PT Offset**, to find the exact location of the virtual memory inside of physical memory
+
+![](/assets/images/04-02-20242024-03-31-Hypervisor%20From%20Scratch-4.png)
 #### Resources
-
-https://github.com/DarthTon/HyperBone/tree/master
-
-https://github.com/tandasat/HyperPlatform
