@@ -384,10 +384,8 @@ MmFreeContiguousMemory(PhysicalToVirtualAddress(g_GuestState[i].VmxonRegion));
 ![](/assets/images/04-01-20242024-03-31-Hypervisor%20From%20Scratch.png)
 
 
-
-
-#### Extended Page Table (EPT)
-##### 4-Level Paging
+## Extended Page Table (EPT)
+### 4-Level Paging
 - Virtual address breaks into 6 parts. only 5 parts are used to determine the physical address
 ![](/assets/images/04-02-20242024-03-31-Hypervisor%20From%20Scratch-1.png)
 1. PML4 Index determines the index inside of the PML4 table
