@@ -173,10 +173,10 @@ Some of the questions that I'm looking to get answers for
 	- Due to limit of configuration space of 4096 bytes on modern system
 	- Base Address Register (BAR) is a register exposed through configuration space that allows host machine to configure a region of its memory to directly to the device 
 	- Software on the host machine then accesses BARs through memory read/write instructions directed to the BAR’s physical addresses.
-![](../assets/images/03-30-20242024-03-26-PCIe%20Blogpost%20Study-3.png)
+![](/assets/images/03-30-20242024-03-26-PCIe%20Blogpost%20Study-3.png)
 
 #### High-speed I/O PCIE
 - Memory-mapped Input/Output (MMIO) 
-![](../assets/images/03-30-20242024-03-26-PCIe%20Blogpost%20Study.png)
+![](/assets/images/03-30-20242024-03-26-PCIe%20Blogpost%20Study.png)
 - Direct Memory Access (DMA) - **unlike** **MMIO, DMA is initiated by the device itself, not the host CPU**
-![](../assets/images/03-30-20242024-03-26-PCIe%20Blogpost%20Study-2.png)
+![](/assets/images/03-30-20242024-03-26-PCIe%20Blogpost%20Study-2.png)
