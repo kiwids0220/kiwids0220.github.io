@@ -101,6 +101,7 @@ IoFreeMdl(Mdl);
 #vmm
 - There should be equal numbers of VMCSs and VMXON regions as the number of logical processors.
 - Check if VMX operations are supported
+
 ```c
 BOOLEAN
 IsVmxSupported()
@@ -192,6 +193,7 @@ AsmEnableVmxOperation ENDP
 ```
 - `CR0.PE, CR0.NE, CR0.PG, and CR4.VMXE` bit should be 1 to be executed in page-protected mode
 - Writing the `Revision Identifier` from `IA32_VMX_BASIC_MSR` to VMXON Region
+
 ```c
 typedef union _IA32_VMX_BASIC_MSR
 {
@@ -223,6 +225,7 @@ IA32_VMX_BASIC_MSR basic = {0};
 ```
 
 - `AllocateVmxonRegion` , writes the `IA32_VMX_BASIC_MSR.Fields.RevisionIdentifier` to VMXON region and  turn VMXON
+
 ```c
 BOOLEAN
 AllocateVmxonRegion(IN VIRTUAL_MACHINE_STATE * GuestState)
@@ -282,8 +285,10 @@ AllocateVmxonRegion(IN VIRTUAL_MACHINE_STATE * GuestState)
     return TRUE;
 }
 ```
+
 - `AllocateVmxonRegion` , writes the `IA32_VMX_BASIC_MSR.Fields.RevisionIdentifier` to VMCS region and  `VMPTRLD ` sets the current VMCS on a logical processor.
 	- `vmptrst(PA)` sets the current VMCS at the specified PA
+
 ```c
 BOOLEAN
 AllocateVmcsRegion(IN VIRTUAL_MACHINE_STATE * GuestState)
@@ -345,6 +350,7 @@ AllocateVmcsRegion(IN VIRTUAL_MACHINE_STATE * GuestState)
 }
 ```
 - Turn off VMX
+
 ```c
 VOID
 TerminateVmx()
