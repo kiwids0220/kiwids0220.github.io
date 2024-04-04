@@ -97,6 +97,13 @@ IoFreeMdl(Mdl);
 ```
 ### Creating Custom Virtual Machine Monitor (VMM)
 
+## CPU Execution Mode
+The result of the great great first-generation Intel VT-x
+- Allowing VMM to run in a new **root** mode below ring 0.
+- All sensitive calls are trapped automatically to the hypervisor.
+- Storing Guest in VMCS (Intel VT-x)
+
+
 #vmm
 - There should be equal numbers of VMCSs and VMXON regions as the number of logical processors.
 - Check if VMX operations are supported
@@ -383,11 +390,18 @@ MmFreeContiguousMemory(PhysicalToVirtualAddress(g_GuestState[i].VmxonRegion));
 	- VMCLEAR can only execute on VMCS that's launched.
 ![](/assets/images/04-01-20242024-03-31-Hypervisor%20From%20Scratch.png)
 
-
 ## Extended Page Table (EPT)
+The result of the great second-generation Intel VT-X
+
+### History of Software MMU And Why
+[Intel EPT Evaluation](https://www.vmware.com/content/dam/digitalmarketing/vmware/en/pdf/techpaper/perf-esx-intel-ept-eval.pdf)
+- Software MMU is needed to help facilitate virtual machine memory access
+- Works by keeping shadow page table cohernt to the Guest OS page table
+- Many many traps as there are many memory access happening all the time in the Guest OS.
+- GVA - page table -> GPA -> SoftwareMMU -> shadow page table lookup -> PA
 ### Review 4-Level Paging
 - Virtual address breaks into 6 parts. only 5 parts are used to determine the physical address
-![](/assets/images/04-02-20242024-03-31-Hypervisor%20From%20Scratch-1.png)
+	![](/assets/images/04-02-20242024-03-31-Hypervisor%20From%20Scratch-1.png)
 1. PML4 Index determines the index inside of the PML4 table
 	- After finding the entry in the PML4 table, look for **Paging Structure Entry** and its **Page Frame Number (PFN)** 
 	- Multiply `0x1000` by the PFN to find the corresponding **Page Directory Pointer Table (PDPT)**
@@ -402,4 +416,37 @@ MmFreeContiguousMemory(PhysicalToVirtualAddress(g_GuestState[i].VmxonRegion));
 	- Applying the **PT Offset**, to find the exact location of the virtual memory inside of physical memory
 
 ![](/assets/images/04-02-20242024-03-31-Hypervisor%20From%20Scratch-4.png)
+
+### Shadow Page Tables (Legacy)
+- Software-assisted paging 
+- VMM maintains the **Shadow Page Tables**
+	![](../assets/images/04-03-20242024-03-31-Hypervisor%20From%20Scratch.png)![](/assets/images/04-03-20242024-03-31-Hypervisor%20From%20Scratch.png)
+
+### Extended Page Table (EPT, Hardware-assisted Paging)
+- Reduce VM-exit calls, number of TLB flushes.
+- One page table is maintained by **Guest OS** generate the **guest physical address (GPA)**
+- One page table is maintained by VMM, maps the **GPA** to **Physical Address (PA)**
+- When the Guest OS is executing under VMM in a new **root** mode (Intel VT-x VMXON) access a GVA, the **Hardware MMU** will walk both **Guest Page Table** and the **Extended Page Table**
+EPT MMU directly gets the guest’s physical address from the guest page table and then map to the host’s physical address (doing all the hardwork within the CPU).
+
+![](../assets/images/04-03-20242024-03-31-Hypervisor%20From%20Scratch-1.png)
+
+```c
+// See Table 24-8. Format of Extended-Page-Table Pointer
+typedef union _EPTP {
+    ULONG64 All;
+    struct {
+        UINT64 MemoryType : 3; // bit 2:0 (0 = Uncacheable (UC) - 6 = Write - back(WB))
+        UINT64 PageWalkLength : 3; // bit 5:3 (This value is 1 less than the EPT page-walk length) 
+        UINT64 DirtyAndAceessEnabled : 1; // bit 6  (Setting this control to 1 enables accessed and dirty flags for EPT)
+        UINT64 Reserved1 : 5; // bit 11:7 
+        UINT64 PML4Address : 36;
+        UINT64 Reserved2 : 16;
+    }Fields;
+}EPTP, *PEPTP;
+
+```
+
 #### Resources
+
+[Understand Full Virtualization, Paravirutalization, and Hardware Assit](https://www.vmware.com/techpapers/2007/understanding-full-virtualization-paravirtualizat-1008.html)
