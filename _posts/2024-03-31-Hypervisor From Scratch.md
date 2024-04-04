@@ -420,7 +420,7 @@ The result of the great second-generation Intel VT-X
 ### Shadow Page Tables (Legacy)
 - Software-assisted paging 
 - VMM maintains the **Shadow Page Tables**
-	![](../assets/images/04-03-20242024-03-31-Hypervisor%20From%20Scratch.png)![](/assets/images/04-03-20242024-03-31-Hypervisor%20From%20Scratch.png)
+	![](/assets/images/04-03-20242024-03-31-Hypervisor%20From%20Scratch.png)![](/assets/images/04-03-20242024-03-31-Hypervisor%20From%20Scratch.png)
 
 ### Extended Page Table (EPT, Hardware-assisted Paging)
 - Reduce VM-exit calls, number of TLB flushes.
@@ -429,7 +429,7 @@ The result of the great second-generation Intel VT-X
 - When the Guest OS is executing under VMM in a new **root** mode (Intel VT-x VMXON) access a GVA, the **Hardware MMU** will walk both **Guest Page Table** and the **Extended Page Table**
 EPT MMU directly gets the guest’s physical address from the guest page table and then map to the host’s physical address (doing all the hardwork within the CPU).
 
-![](../assets/images/04-03-20242024-03-31-Hypervisor%20From%20Scratch-1.png)
+![](/assets/images/04-03-20242024-03-31-Hypervisor%20From%20Scratch-1.png)
 
 ```c
 // See Table 24-8. Format of Extended-Page-Table Pointer
