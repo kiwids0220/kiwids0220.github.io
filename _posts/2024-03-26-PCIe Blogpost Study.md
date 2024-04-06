@@ -172,14 +172,14 @@ PDO Extension, Bus 0x2, Device 0, Function 0.
 - Setup System RAM for read-write memory pages
 -  Either **IOMMU Remapping**. or **contiguous physical memory**
 - **device logical address** , the memory device can see and use in the system RAM
-	![](../assets/images/04-06-20242024-03-26-PCIe%20Blogpost%20Study.png)
+	![](/assets/images/04-06-20242024-03-26-PCIe%20Blogpost%20Study.png)
 
 ### Step 2 - Programming DMA addresses to the device and beginning transfer
 
 -  driver should program the device is to either refer to its general standard such as the NVMe Specification or to simply work with the hardware designer
 - Simple communication below :
 	- Driver communicate the DMA memory address to the device by writing the addresses to BAR0 mapping
-	!![](../assets/images/04-06-20242024-03-26-PCIe%20Blogpost%20Study-2.png)
+	!![](/assets/images/04-06-20242024-03-26-PCIe%20Blogpost%20Study-2.png)
 
 
 ### Step 3 - Device performs DMA transaction
@@ -187,10 +187,10 @@ PDO Extension, Bus 0x2, Device 0, Function 0.
 - After the DMA source/destination buffer has been configured on the device end, **DMA Engine** takes over
 - **DMA Engine** will read those configuration at BAR0 and start handling/generating TLPs
 	- The **Memory Address** used to detemine which device is being requested for access
-	![](../assets/images/04-06-20242024-03-26-PCIe%20Blogpost%20Study-3.png)
+	![](/assets/images/04-06-20242024-03-26-PCIe%20Blogpost%20Study-3.png)
 	- The **PCIe Bridges** are in charge of translating **Memroy Address** to **BDF**
-	![](../assets/images/04-06-20242024-03-26-PCIe%20Blogpost%20Study-4.png)
-	![](../assets/images/04-06-20242024-03-26-PCIe%20Blogpost%20Study-5.png)
+	![](/assets/images/04-06-20242024-03-26-PCIe%20Blogpost%20Study-4.png)
+	![](/assets/images/04-06-20242024-03-26-PCIe%20Blogpost%20Study-5.png)
 
 #### DMA Engine
 ##### Reading Memory
