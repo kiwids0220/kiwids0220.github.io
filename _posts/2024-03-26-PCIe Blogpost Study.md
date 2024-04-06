@@ -164,3 +164,44 @@ PDO Extension, Bus 0x2, Device 0, Function 0.
 - Response goes to **Root Complex** informs CPU. Slow downs the process alot (that's why there's Direct Memory Access (DMA))
 ![](/assets/images/03-27-20242024-03-26-PCIe%20Blogpost%20Study-6.png)
 
+
+
+## DMA Transcation
+
+### Step 1 - Allocating DMA Memory from the OS
+- Setup System RAM for read-write memory pages
+-  Either **IOMMU Remapping**. or **contiguous physical memory**
+- **device logical address** , the memory device can see and use in the system RAM
+	![](../assets/images/04-06-20242024-03-26-PCIe%20Blogpost%20Study.png)
+
+### Step 2 - Programming DMA addresses to the device and beginning transfer
+
+-  driver should program the device is to either refer to its general standard such as the NVMe Specification or to simply work with the hardware designer
+- Simple communication below :
+	- Driver communicate the DMA memory address to the device by writing the addresses to BAR0 mapping
+	!![](../assets/images/04-06-20242024-03-26-PCIe%20Blogpost%20Study-2.png)
+
+
+### Step 3 - Device performs DMA transaction
+#dmaengine
+- After the DMA source/destination buffer has been configured on the device end, **DMA Engine** takes over
+- **DMA Engine** will read those configuration at BAR0 and start handling/generating TLPs
+	- The **Memory Address** used to detemine which device is being requested for access
+	![](../assets/images/04-06-20242024-03-26-PCIe%20Blogpost%20Study-3.png)
+	- The **PCIe Bridges** are in charge of translating **Memroy Address** to **BDF**
+	![](../assets/images/04-06-20242024-03-26-PCIe%20Blogpost%20Study-4.png)
+	![](../assets/images/04-06-20242024-03-26-PCIe%20Blogpost%20Study-5.png)
+
+#### DMA Engine
+##### Reading Memory
+- **DMA Engine Creates TLP**
+- **TLP Traverses Hierarchy** - **Root Complex**
+- **DRAM Controller is Notified** - Root Complex internally communicates with the DRAM controller
+- **Memory is Read from DRAM**
+Response
+- **Memory is read from DRAM**
+- **DRAM Controller Responds to Root Complex**
+- **Root Complex Generates Completion**
+- **DMA Engine receives TLP**
+- **Target Memory is Written**
+- **System is Interrupted** (optional) - This gives the device driver a notification when the DMA has been successfully completed by the device.
