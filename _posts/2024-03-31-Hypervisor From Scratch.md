@@ -451,9 +451,99 @@ typedef union _EPTP {
 
 `Hypervisor-From-Scratch\Part 4 - Address Translation Using Extended Page Table (EPT)\MyHypervisorDriver\MyHypervisorDriver\EPT.c`
 
-
 ### EPTP Dirty Flags
 Setting this flag causes processor accesses to guest paging structure entries to be treated as writes.
+
+
+
+## VMRESUME & VM
+
+### Saving Virtual Machine State
+
+```c
+typedef struct _VIRTUAL_MACHINE_STATE
+{
+    UINT64 VmxoRegion;        // VMXON region
+    UINT64 VmcsRegion;        // VMCS region
+    UINT64 Eptp;              // Extended-Page-Table Pointer
+    UINT64 VmmStack;          // Stack for VMM in VM-Exit State
+    UINT64 MsrBitmap;         // MSR Bitmap Virtual Address
+    UINT64 MsrBitmapPhysical; // MSR Bitmap Physical Address
+
+} VIRTUAL_MACHINE_STATE, *PVIRTUAL_MACHINE_STATE;
+
+```
+#### Saving Host Routines/Registers On Stack
+```c
+    //
+    // Allocate stack for the VM Exit Handler
+    //
+    UINT64 VMM_STACK_VA                = ExAllocatePoolWithTag(NonPagedPool, VMM_STACK_SIZE, POOLTAG);
+    g_GuestState[ProcessorID].VmmStack = VMM_STACK_VA;
+
+    if (g_GuestState[ProcessorID].VmmStack == NULL)
+    {
+        DbgPrint("[*] Error in allocating VMM Stack.\n");
+        return;
+    }
+    RtlZeroMemory(g_GuestState[ProcessorID].VmmStack, VMM_STACK_SIZE);
+```
+
+#### Saving MSRBitmap
+```c
+    //
+    // Allocate memory for MSRBitMap
+    //
+    g_GuestState[ProcessorID].MsrBitmap = MmAllocateNonCachedMemory(PAGE_SIZE); // should be aligned
+    if (g_GuestState[ProcessorID].MsrBitmap == NULL)
+    {
+        DbgPrint("[*] Error in allocating MSRBitMap.\n");
+        return;
+    }
+    RtlZeroMemory(g_GuestState[ProcessorID].MsrBitmap, PAGE_SIZE);
+    g_GuestState[ProcessorID].MsrBitmapPhysical = VirtualToPhysicalAddress(g_GuestState[ProcessorID].MsrBitmap);
+```
+
+```asm
+
+AsmSaveStateForVmxoff PROC PUBLIC
+
+	MOV g_StackPointerForReturning, RSP
+	MOV g_BasePointerForReturning, RBP
+
+	RET
+
+AsmSaveStateForVmxoff ENDP 
+
+AsmVmxoffAndRestoreState PROC PUBLIC
+
+	VMXOFF  ; turn it off before existing
+	
+	MOV RSP, g_StackPointerForReturning
+	MOV RBP, g_BasePointerForReturning
+	
+	; make rsp point to a correct return point
+	ADD RSP, 8
+	
+	; return True
+
+	XOR RAX, RAX
+	MOV RAX, 1
+	
+	; return section
+	
+	MOV     RBX, [RSP+28h+8h]
+	MOV     RSI, [RSP+28h+10h]
+	ADD     RSP, 020h
+	POP     RDI
+	
+	RET
+	
+AsmVmxoffAndRestoreState ENDP 
+```
+
+#### Setting Up VMCS
+
 #### Resources
 
 [Understand Full Virtualization, Paravirutalization, and Hardware Assit](https://www.vmware.com/techpapers/2007/understanding-full-virtualization-paravirtualizat-1008.html)
