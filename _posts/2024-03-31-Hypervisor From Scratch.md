@@ -413,9 +413,8 @@ The result of the great second-generation Intel VT-X
 	- find **PFN** again, multiply by `0x1000`
 4. Arrive at **Page Table (PT)**, using **PT Index** to locate the PT Entry
 	- Use **PFN** again, to find the **actual physical page** 
-	- Applying the **PT Offset**, to find the exact location of the virtual memory inside of physical memory
-
-![](/assets/images/04-02-20242024-03-31-Hypervisor%20From%20Scratch-4.png)
+	- Applying the **PT Offset**, to findw the exact location of the virtual memory inside of physical memory
+	![](/assets/images/04-02-20242024-03-31-Hypervisor%20From%20Scratch-4.png)
 
 ### Shadow Page Tables (Legacy)
 - Software-assisted paging 
@@ -447,6 +446,14 @@ typedef union _EPTP {
 
 ```
 
+
+### ETP Implementation
+
+`Hypervisor-From-Scratch\Part 4 - Address Translation Using Extended Page Table (EPT)\MyHypervisorDriver\MyHypervisorDriver\EPT.c`
+
+
+### EPTP Dirty Flags
+Setting this flag causes processor accesses to guest paging structure entries to be treated as writes.
 #### Resources
 
 [Understand Full Virtualization, Paravirutalization, and Hardware Assit](https://www.vmware.com/techpapers/2007/understanding-full-virtualization-paravirtualizat-1008.html)
