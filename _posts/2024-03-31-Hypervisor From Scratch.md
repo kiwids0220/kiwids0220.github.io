@@ -456,7 +456,69 @@ Setting this flag causes processor accesses to guest paging structure entries to
 
 
 
-## VMRESUME & VM
+## VMRESUME & VMLAUNCH
+### Initializing EPT & VMX
+
+```c
+__try
+{
+    //
+    // Initiating EPTP and VMX
+    // Initialize a memory page and store instruction \xF4 on it (i.e., g_VirtualGuestMemoryAddress)
+    //
+    PEPTP EPTP = InitializeEptp();
+	//Initialize g_GeustState Continous memory pages to store GUest VM State, including VMCS regions and vmmstack, MSRBitmap
+	
+	for (size_t i = 0; i < (100 * PAGE_SIZE) - 1; i++)
+	{
+		void * TempAsm = "\xF4";
+		memcpy(g_VirtualGuestMemoryAddress + i, TempAsm, 1);
+	}
+	
+    InitiateVmx();
+
+....
+
+```
+Setting up the EPT structure on host and initialize VMXON region & VMCS Region (physical memory)
+
+### Launch VM
+```c
+LaunchVm(ProcessorID, EPTP)
+{
+//Setting one processor to run 
+ KAFFINITY AffinityMask;
+ AffinityMask = MathPower(2, ProcessorID);
+ KeSetSystemAffinityThread(AffinityMask);
+ // Initialize VMM Stack
+UINT64 VMM_STACK_VA                = ExAllocatePoolWithTag(NonPagedPool, VMM_STACK_SIZE, POOLTAG);
+g_GuestState[ProcessorID].VmmStack = VMM_STACK_VA;
+//Setting up MSRBitmap
+g_GuestState[ProcessorID].MsrBitmap = MmAllocateNonCachedMemory(PAGE_SIZE); // should be aligned
+    g_GuestState[ProcessorID].MsrBitmapPhysical = VirtualToPhysicalAddress(g_GuestState[ProcessorID].MsrBitmap);
+// Clear VMCS
+if (!ClearVmcsState(&g_GuestState[ProcessorID]))
+{
+    goto ErrorReturn;
+}
+//Load the VMCS with previous initialized g_GuestState->VmcsRegion
+if (!LoadVmcs(&g_GuestState[ProcessorID]))
+{
+    goto ErrorReturn;
+}
+}
+```
+
+### Setup VMCS
+```c
+__vmx_vmwrite(HOST_ES_SELECTOR, GetEs() & 0xF8);
+__vmx_vmwrite(HOST_CS_SELECTOR, GetCs() & 0xF8);
+__vmx_vmwrite(HOST_SS_SELECTOR, GetSs() & 0xF8);
+__vmx_vmwrite(HOST_DS_SELECTOR, GetDs() & 0xF8);
+__vmx_vmwrite(HOST_FS_SELECTOR, GetFs() & 0xF8);
+__vmx_vmwrite(HOST_GS_SELECTOR, GetGs() & 0xF8);
+__vmx_vmwrite(HOST_TR_SELECTOR, GetTr() & 0xF8);
+```
 
 ### Saving Virtual Machine State
 
@@ -503,9 +565,8 @@ typedef struct _VIRTUAL_MACHINE_STATE
     RtlZeroMemory(g_GuestState[ProcessorID].MsrBitmap, PAGE_SIZE);
     g_GuestState[ProcessorID].MsrBitmapPhysical = VirtualToPhysicalAddress(g_GuestState[ProcessorID].MsrBitmap);
 ```
-
-```asm
-
+#### Saving RSP to return from Non-root Mode
+```c
 AsmSaveStateForVmxoff PROC PUBLIC
 
 	MOV g_StackPointerForReturning, RSP
@@ -541,9 +602,13 @@ AsmVmxoffAndRestoreState PROC PUBLIC
 	
 AsmVmxoffAndRestoreState ENDP 
 ```
-
 #### Setting Up VMCS
+![](../assets/images/04-07-20242024-03-31-Hypervisor%20From%20Scratch.png)
+A lot of the VMCS bits can cause some VM-Exits and other behaviors
 
+##### Secondary Controls
+
+#### PIN-Based Execution Control
 #### Resources
 
 [Understand Full Virtualization, Paravirutalization, and Hardware Assit](https://www.vmware.com/techpapers/2007/understanding-full-virtualization-paravirtualizat-1008.html)
