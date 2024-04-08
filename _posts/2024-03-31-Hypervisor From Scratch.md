@@ -603,7 +603,7 @@ AsmVmxoffAndRestoreState PROC PUBLIC
 AsmVmxoffAndRestoreState ENDP 
 ```
 #### Setting Up VMCS
-![](../assets/images/04-07-20242024-03-31-Hypervisor%20From%20Scratch.png)
+![](/assets/images/04-07-20242024-03-31-Hypervisor%20From%20Scratch.png)
 A lot of the VMCS bits can cause some VM-Exits and other behaviors
 
 ##### Secondary Controls
