@@ -12,8 +12,8 @@ image:
   path: assets/images/AIgen1.jpg
   src: assets/images/AIgen1.jpg
 ---
-# The Setup
-## Clone & Compare
+## The Setup
+### Clone & Compare
 
 I figured the best way to learn what modification that the `Nyx` has made on top of QEMU is to cloning both repos and compare all files that has been modified/added/deleted. To do so, I used a visual studio code extension `Diff Folders`  (Extension ID: `L13RARY.l13-diff`)
 
@@ -27,7 +27,7 @@ After that, should be easy to compare all the files that `Nyx` has added or modi
 ![](/assets/images/02-19-20242024-02-19-Nyx-Deep-Dive-Part-1-1.png)
 
 
-## Where Can I Start?
+### Where Can I Start?
 
 Well, following my [Debugging kAFL series]({{ site.baseurl }}{% post_url 2024-01-31-Debugging_KAFL_A_SNAPSHOTBASED_FUZZER %}), you know we have a example that we can debug and now it's just a matter of stepping through the source code and learn some more about `QEMU` and `Nyx` (two bird with one stone).
 
@@ -82,7 +82,7 @@ Adding a configuration file into VS Code is simple enough, ask ChatGPT to conver
 }
 ```
 
-## Okay, Client
+### Okay, Client
 
 We can now run the `QEMU-Nyx`  by starting the debug session, and set a break point at `main()` in `vl.c` 
 ![](/assets/images/02-19-20242024-02-19-Nyx-Deep-Dive-Part-1-3.png)
@@ -99,7 +99,7 @@ We will again use kAFL as our "QEMU-Nyx client" to initiate all workflow for us 
 {: .prompt-warning }
 
 
-## Putting Everything Together
+### Putting Everything Together
 
 1. Start the kAFL Fuzzer frontend 
 	![](/assets/images/02-19-20242024-02-19-Nyx-Deep-Dive-Part-1-4.png)
@@ -112,11 +112,11 @@ We will again use kAFL as our "QEMU-Nyx client" to initiate all workflow for us 
 5.  Have fun learning about QEMU and Nyx\
 
 
-# QEMU  Initialization
+## QEMU  Initialization
 
 After setting up the debugger and mess around within the QEMU-Nyx, I found a couple of interesting spots that might worth documenting.
 
-## QEMU Class Type Registration
+### QEMU Class Type Registration
 
 QEMU before starts the main() function will initialize these devices into its corresponding list using QEMU Object Model (QOM), for details of the process, please see [here](https://terenceli.github.io/%E6%8A%80%E6%9C%AF/2017/01/08/qom-introduction). You can find the `init_type_list` variable and add it to the `Watch`
 ![](/assets/images/02-19-20242024-02-19-Nyx-Deep-Dive-Part-2-1.png)
@@ -135,14 +135,14 @@ type_init(nyx_interface_register_types)
 ```
 ### Summary 
 Each class in QEMU will call `type_init` to **Register*** themselves with QEMU and it will be inserted into `init_type_list` before `main()`.
-## QEMU Class Template Initialization 
+### QEMU Class Template Initialization 
 After the list has been initialized. The class will be instantiated in `vl.c:main()` with `select_machine()`-> `object_class_get_list(TYPE_MACHINE, false);` -> `object_class_foreach(object_class_get_list_tramp,implements_type, include_abstract, &list);` -> `g_hash_table_foreach(type_table_get(), object_class_foreach_tramp, &data);` -> Hash table iteration -> `oject_class_foreach_tramp` -> `object.c:type_initialize` (where the all objects the class inherited from `.parent`) will get ->`ti->class_init` -> `nyx_interface_class_init`. Here is the good graph from [terenceil](https://terenceli.github.io/%E6%8A%80%E6%9C%AF/2017/01/08/qom-introduction) with an example of `VMXNET3Class` 
 
 ![](/assets/images/02-20-20242024-02-19-Nyx-Deep-Dive-Part-2.png)
 
 ### Summary
 During `select_machine()` call, all the classes that has registered with QEMU will be initialized by caling their corrsponding `##_class_init()` funtions. Now with all class template has been initialized, user can now instantiate them.
-## QEMU Chardev Instantiation 
+### QEMU Chardev Instantiation 
 Following the classes initialization, the `main()` continues to parse the user supplied devices/chardevs arguments . In the kAFL case, the first is `"-chardev", "socket,server,id=nyx_socket,path=/tmp/kafl_kiwi/interface_0"`, which the `main()` has a block for initializing all `chardev` the user want
 ```c
 qemu_opts_foreach(qemu_find_opts("chardev"),chardev_init_func, NULL, &error_fatal);
@@ -506,7 +506,7 @@ From the `kAFL` frontend fuzzer and we should see a new socket just got created 
 
 QEMU's `main()` will parse the user arguments to instantiate `chardev` devices and call its `open` function if it has one. 
 
-## QEMU Device Instantiation 
+### QEMU Device Instantiation 
 
 Similar to Chardev, another function is called in `main()`:
 ```
