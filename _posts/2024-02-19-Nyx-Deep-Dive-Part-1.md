@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Deep Diving into Nyx
+title: Deep Diving into Nyx, A Snapshot-based fuzzing 
 date: 2024-02-19
 categories:
   - Virtualization
@@ -12,10 +12,47 @@ image:
   path: assets/images/AIgen1.jpg
   src: assets/images/AIgen1.jpg
 ---
+*Last updated: 05/05/2024*
+## Intro
+I have been wanting to experiment with some fuzzers for quite some time, but I was simply not "ready" to jump into a completely different field yet and life has been busy for me... 
+
+Until recently, I finally made up my mind and decided to give it a shot. I figured the best way to learn fuzzing is to pick a existing fuzzer and dissect it, see what's inside of the fuzzer and how it works. I picked [kAFL](https://github.com/IntelLabs/kAFL), which is a snapshot-based fuzzer frontend that utilize modified QEMU (Quick Emulator) named QEMU-Nyx, modified KVM hypervisor named KVM-Nyx and Intel Processor Tracing (PT) to introduce another solution to fuzzing unique/complex targets. 
+
+I also highly encourage you to check out other fuzzers on the market that are targeting Windows binaries such as [WinAFL](https://github.com/googleprojectzero/winafl), [WTF](https://github.com/0vercl0k/wtf).   
+
+There are no such one-fit-all fuzzer that will suit all your needs, so pick your poison wisely.
 ## The Setup
+
+DELL XPS 9510 Laptop (Intel Processor) running Ubuntu
+```
+LSB Version:    core-11.1.0ubuntu4-noarch:security-11.1.0ubuntu4-noarch
+Distributor ID: Ubuntu
+Description:    Ubuntu 22.04.4 LTS
+Release:        22.04
+Codename:       jammy
+```
+But in theory, any laptops with Intel Processor supports Intel PT and running a linux distro should work. Simply follow the guide in [kAFL documentation](https://intellabs.github.io/kAFL/) to get started.
+
+After setting it up, you should be able to use the Python-virtualenv environment and run:
+```
+(.venv) (base) kiwi@kiwi-XPS-15-9510:~/fuzz/kAFL/windows_x86_64$ kafl -h
+usage: kafl [-h] {fuzz,debug,cov,gui,plot,mcat} ...
+
+positional arguments:
+  {fuzz,debug,cov,gui,plot,mcat}
+    fuzz                kAFL Fuzzer
+    debug               kAFL Debugger
+    cov                 kAFL Coverage Analyzer
+    gui                 kAFL GUI
+    plot                kAFL Plotter
+    mcat                kAFL msgpack Pretty-Printer
+options:
+  -h, --help            show this help message and exit
+```
+
 ### Clone & Compare
 
-I figured the best way to learn what modification that the `Nyx` has made on top of QEMU is to cloning both repos and compare all files that has been modified/added/deleted. To do so, I used a visual studio code extension `Diff Folders`  (Extension ID: `L13RARY.l13-diff`)
+I figured the best way to learn what modification that the `QEMU-Nyx` has made on top of QEMU is to cloning both repos and compare all files that has been modified/added/deleted. To do so, I used a visual studio code extension `Diff Folders`  (Extension ID: `L13RARY.l13-diff`)
 
 >NOTE: The Nyx QEMU is based off of QEMU 4.2.0, which you can find the in branch named `stable-4.2` 
 >Here is the command line used to clone the repo `git clone -b stable-4.2 https://github.com/qemu/qemu.git` for QEMU
@@ -118,7 +155,7 @@ After setting up the debugger and mess around within the QEMU-Nyx, I found a cou
 
 ### QEMU Class Type Registration
 
-QEMU before starts the main() function will initialize these devices into its corresponding list using QEMU Object Model (QOM), for details of the process, please see [here](https://terenceli.github.io/%E6%8A%80%E6%9C%AF/2017/01/08/qom-introduction). You can find the `init_type_list` variable and add it to the `Watch`
+QEMU before starts the `main` function will initialize these devices into its corresponding list using QEMU Object Model (QOM), for details of the process, please see [here](https://terenceli.github.io/%E6%8A%80%E6%9C%AF/2017/01/08/qom-introduction). You can find the `init_type_list` variable and add it to the `Watch`
 ![](/assets/images/02-19-20242024-02-19-Nyx-Deep-Dive-Part-2-1.png)
 
 The list is initialized by all `type_init()` macros which will be called before `main()` thanks for the `constructor` attribute  :
