@@ -6,6 +6,13 @@ tags: [notes, Pwndbg, WinDbg, IDA Pro]
 categories: [Notes, Debugging, RE]
 
 ---
+
+### Symchk
+
+```
+ C:\Program Files (x86)\Windows Kits\10\Debuggers\x64\symchk.exe /s srv*c:\SYMBOLS*https://msdl.microsoft.com/download/symbols C:\Windows\System32\*.dll
+```
+
 ### Windbg to Pwndbg
 Thanks to the Pwndbg dev team, users coming from Windbg will find pwndbg quite handy with the `db, dt, dq, dq, etc...` flags in Pwndbg. I really like the `dt` flag that will print out the type given a variable name.
 ![](/assets/images/2024-01-31-dt.png)
