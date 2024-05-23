@@ -190,6 +190,16 @@ ntdll!_KWAIT_BLOCK
    +0x020 Object           : 0xffff8005`b84bd5a0 Void
    +0x028 SparePtr         : (null) 
 ```
+>Running threads at the time of crashes
+```
+2: kd> !running-t
+```
+
+>Search through all callstacks for modules
+```
+!stacks 0 myfault
+```
+
 
 ### IDA Pro Scripts
 
