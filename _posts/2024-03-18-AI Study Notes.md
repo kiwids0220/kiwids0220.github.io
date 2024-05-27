@@ -195,17 +195,24 @@ x + y, x - y, x * y, x / y, x ** y
 ### Derivatives and Differentiation
 
 Derivative is the rate of change in a function with respect to changes in its aruments.
+
 ![](/assets/images/2024-03-18-AI%20Study%20Notes-05-27-2024-3.png)
 we often optimize a differentiable _surrogate_ instead.
 
 ![](/assets/images/2024-03-18-AI%20Study%20Notes-05-27-2024-4.png)
+
 Also need to remember powerrules
+
 ![](/assets/images/2024-03-18-AI%20Study%20Notes-05-27-2024-5.png)
 #### Partial Derivatives
+
 We can concatenate partial derivatives of a multivariate function with respect to all its variables to obtain a vector that is called the _gradient_ of the function.
+
 ![](/assets/images/2024-03-18-AI%20Study%20Notes-05-27-2024-6.png)
+
 #### Nested Functions
 #chainrule
+
 ![](/assets/images/2024-03-18-AI%20Study%20Notes-05-27-2024-8.png)
 ### Exercise
 
