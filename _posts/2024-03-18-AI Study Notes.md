@@ -194,9 +194,11 @@ x + y, x - y, x * y, x / y, x ** y
 
 ### Derivatives and Differentiation
 
-Derivative is the rate of change in a function with respect to changes in its aruments.
+Derivative is the rate of change in a function with respect to changes in its arguments.
+
 
 ![](/assets/images/2024-03-18-AI%20Study%20Notes-05-27-2024-3.png)
+
 we often optimize a differentiable _surrogate_ instead.
 
 ![](/assets/images/2024-03-18-AI%20Study%20Notes-05-27-2024-4.png)
