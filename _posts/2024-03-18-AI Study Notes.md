@@ -152,14 +152,16 @@ torch.mm(A, B), A@B
 ### Norms
 Measures how big/long a vector/matrix is.
 #### Euclidean norm
-![](/assets/images/2024-03-18-AI%20Study%20Notes-05-27-2024.png)
+
+**$$\|\mathbf{x}\|_2 = \sqrt{\sum_{i=1}^n x_i^2}.$$**
 #### Manhattan distance
-![](/assets/images/2024-03-18-AI%20Study%20Notes-05-27-2024-1.png)
+
+**$$\|\mathbf{x}\|_1 = \sum_{i=1}^n \left|x_i \right|.$$**
 
 #### Frobenius norm
 
-
-## Tensor
+**$$\|\mathbf{X}\|_\textrm{F} = \sqrt{\sum_{i=1}^m \sum_{j=1}^n x_{ij}^2}.$$**
+## Tensor 
 - `Tensor` in PyTorch and TensorFlow
 - `ndarray` in MXNet
 - NumPy's `ndarray`
@@ -196,26 +198,49 @@ x + y, x - y, x * y, x / y, x ** y
 
 Derivative is the rate of change in a function with respect to changes in its arguments.
 
-
-![](/assets/images/2024-03-18-AI%20Study%20Notes-05-27-2024-3.png)
+**$$f'(x) = \lim_{h \rightarrow 0} \frac{f(x+h) - f(x)}{h}.$$**
 
 we often optimize a differentiable _surrogate_ instead.
 
-![](/assets/images/2024-03-18-AI%20Study%20Notes-05-27-2024-4.png)
+$$\begin{aligned} \frac{d}{dx} C & = 0 && \textrm{for any constant $C$} \\ \frac{d}{dx} x^n & = n x^{n-1} && \textrm{for } n \neq 0 \\ \frac{d}{dx} e^x & = e^x \\ \frac{d}{dx} \ln x & = x^{-1}. \end{aligned}$$
 
-Also need to remember powerrules
+Rules 
+$$\begin{aligned} \frac{d}{dx} [C f(x)] & = C \frac{d}{dx} f(x) && \textrm{Constant multiple rule} \\ \frac{d}{dx} [f(x) + g(x)] & = \frac{d}{dx} f(x) + \frac{d}{dx} g(x) && \textrm{Sum rule} \\ \frac{d}{dx} [f(x) g(x)] & = f(x) \frac{d}{dx} g(x) + g(x) \frac{d}{dx} f(x) && \textrm{Product rule} \\ \frac{d}{dx} \frac{f(x)}{g(x)} & = \frac{g(x) \frac{d}{dx} f(x) - f(x) \frac{d}{dx} g(x)}{g^2(x)} && \textrm{Quotient rule} \end{aligned}$$
 
-![](/assets/images/2024-03-18-AI%20Study%20Notes-05-27-2024-5.png)
-#### Partial Derivatives
+Also need to remember power rules
+
+$$\begin{aligned} \frac{d}{dx} x^n & = n x^{n-1} && \textrm{for } n \neq 0 \\\end{aligned}$$
+
+### Partial Derivatives
 
 We can concatenate partial derivatives of a multivariate function with respect to all its variables to obtain a vector that is called the _gradient_ of the function.
 
-![](/assets/images/2024-03-18-AI%20Study%20Notes-05-27-2024-6.png)
+$$ \frac{\partial y}{\partial x_i} = \lim_{h \rightarrow 0} \frac{f(x_1, \ldots, x_{i-1}, x_i+h, x_{i+1}, \ldots, x_n) - f(x_1, \ldots, x_i, \ldots, x_n)}{h}.$$
 
+$$\nabla_{\mathbf{x}} f(\mathbf{x}) = \left[\partial_{x_1} f(\mathbf{x}), \partial_{x_2} f(\mathbf{x}), \ldots
+\partial_{x_n} f(\mathbf{x})\right]^\top.$$ 
 #### Nested Functions
 #chainrule
 
 ![](/assets/images/2024-03-18-AI%20Study%20Notes-05-27-2024-8.png)
+
+## Probability -  Law of Large Numbers
+
+$(1/\sqrt{n})$
+
+A *probability* function maps events
+onto real values ${P: \mathcal{A} \subseteq \mathcal{S} \rightarrow [0,1]}$.
+The probability, denoted $P(\mathcal{A})$, of an event $\mathcal{A}$
+in the given sample space $\mathcal{S}$,
+has the following properties:
+
+* The probability of any event $\mathcal{A}$ is a nonnegative real number, i.e., $P(\mathcal{A}) \geq 0$;
+* The probability of the entire sample space is $1$, i.e., $P(\mathcal{S}) = 1$;
+* For any countable sequence of events $\mathcal{A}_1, \mathcal{A}_2, \ldots$ that are *mutually exclusive* (i.e., $\mathcal{A}_i \cap \mathcal{A}_j = \emptyset$ for all $i \neq j$), the probability that any of them happens is equal to the sum of their individual probabilities, i.e., $P(\bigcup_{i=1}^{\infty} \mathcal{A}_i) = \sum_{i=1}^{\infty} P(\mathcal{A}_i)$.
+### Random Variables
+
+ random variables can be much coarser than the raw sample space. We can define a binary random variable like "greater than 0.5" even when the underlying sample space is infinite,
+
 ### Exercise
 
 ![](/assets/images/2024-03-18-AI%20Study%20Notes-05-27-2024-2.png)
