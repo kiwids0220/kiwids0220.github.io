@@ -127,7 +127,38 @@ Usually based on an popular approach called ==gradient descent==
 
 ## Ndarray
 
-#tensor
+
+## Liner-Algebra
+
+```python
+import torch
+A = torch.arange(6).reshape(3, 2)
+B = A.clone()  # Assign a copy of A to B by allocating new memory
+
+```
+### Products
+
+```python
+#dot-products
+torch.sum(x * y)
+
+#matrix-vector product
+A.shape, x.shape, torch.mv(A, x), A@x
+#matrix-matrix
+B = torch.ones(3, 4)
+torch.mm(A, B), A@B
+```
+### Norms
+Measures how big/long a vector/matrix is.
+#### Euclidean norm
+![](/assets/images/2024-03-18-AI%20Study%20Notes-05-27-2024.png)
+#### Manhattan distance
+![](/assets/images/2024-03-18-AI%20Study%20Notes-05-27-2024-1.png)
+
+#### Frobenius norm
+
+
+## Tensor
 - `Tensor` in PyTorch and TensorFlow
 - `ndarray` in MXNet
 - NumPy's `ndarray`
@@ -157,3 +188,24 @@ x = torch.tensor([1.0, 2, 4, 8])
 y = torch.tensor([2, 2, 2, 2])
 x + y, x - y, x * y, x / y, x ** y
 ```
+
+## Calculus
+
+### Derivatives and Differentiation
+
+Derivative is the rate of change in a function with respect to changes in its aruments.
+![](/assets/images/2024-03-18-AI%20Study%20Notes-05-27-2024-3.png)
+we often optimize a differentiable _surrogate_ instead.
+
+![](/assets/images/2024-03-18-AI%20Study%20Notes-05-27-2024-4.png)
+Also need to remember powerrules
+![](/assets/images/2024-03-18-AI%20Study%20Notes-05-27-2024-5.png)
+#### Partial Derivatives
+We can concatenate partial derivatives of a multivariate function with respect to all its variables to obtain a vector that is called the _gradient_ of the function.
+![](/assets/images/2024-03-18-AI%20Study%20Notes-05-27-2024-6.png)
+#### Nested Functions
+#chainrule
+![](/assets/images/2024-03-18-AI%20Study%20Notes-05-27-2024-8.png)
+### Exercise
+
+![](/assets/images/2024-03-18-AI%20Study%20Notes-05-27-2024-2.png)
