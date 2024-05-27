@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Dive into Deep Learning Study Notes
+date: 2024-05-27
 categories: [Notes, deeplearning] 
 tags:
   - notes
