@@ -94,6 +94,7 @@ Usually based on an popular approach called ==gradient descent==
 
 - [Supervised Learning](https://d2l.ai/chapter_introduction/index.html#supervised-learning) : Feature - label pair, we are the supervisors who provide the model with a dataset consisting of labeled examples.
 	- **Regression** : When labels (e.g., house selling price) are taken on ***arbitrary numerical values***, and we will work on minimizing the squared error
+	![](/assets/images/2024-03-18-AI%20Study%20Notes-05-28-2024.png)
 		- How many hours will this surgery take?
 		- How much rainfall this town have in the next 6 hours
 	- **Classification** : Identify **one*** category an example belongs, grouping examples into different categories. Seed for a **classifier***. 
@@ -151,7 +152,7 @@ torch.mm(A, B), A@B
 ```
 ### Norms
 Measures how big/long a vector/matrix is.
-#### Euclidean norm
+#### Euclidean norm (l2 norm)
 
 $$\|\mathbf{x}\|_2 = \sqrt{\sum_{i=1}^n x_i^2}.$$
 #### Manhattan distance
@@ -160,7 +161,9 @@ $$\|\mathbf{x}\|_1 = \sum_{i=1}^n \left|x_i \right|.$$
 
 #### Frobenius norm
 
-$$\|\mathbf{X}\|_\textrm{F} = \sqrt{\sum_{i=1}^m \sum_{j=1}^n x_{ij}^2}.$$
+$$
+\|\mathbf{X}\|_\textrm{F} = \sqrt{\sum_{i=1}^m \sum_{j=1}^n x_{ij}^2}.
+$$
 ## Tensor 
 - `Tensor` in PyTorch and TensorFlow
 - `ndarray` in MXNet
@@ -216,10 +219,13 @@ $$\begin{aligned} \frac{d}{dx} x^n & = n x^{n-1} && \textrm{for } n \neq 0 \\\en
 
 We can concatenate partial derivatives of a multivariate function with respect to all its variables to obtain a vector that is called the _gradient_ of the function.
 
-$$ \frac{\partial y}{\partial x_i} = \lim_{h \rightarrow 0} \frac{f(x_1, \ldots, x_{i-1}, x_i+h, x_{i+1}, \ldots, x_n) - f(x_1, \ldots, x_i, \ldots, x_n)}{h}.$$
+$$\\
+\begin{equation}\frac{\partial y}{\partial x_i} = \lim_{h \rightarrow 0} \frac{f(x_1, \ldots, x_{i-1}, x_i+h, x_{i+1}, \ldots, x_n) - f(x_1, \ldots, x_i, \ldots, x_n)}{h}\end{equation}$$
 
-$$\nabla_{\mathbf{x}} f(\mathbf{x}) = \left[\partial_{x_1} f(\mathbf{x}), \partial_{x_2} f(\mathbf{x}), \ldots
-\partial_{x_n} f(\mathbf{x})\right]^\top.$$ 
+$$\begin{equation}\nabla_{\mathbf{x}} f(\mathbf{x}) = \left[\partial_{x_1} f(\mathbf{x}), \partial_{x_2} f(\mathbf{x}), \ldots
+\partial_{x_n} f(\mathbf{x})\right]^\top
+\end{equation}$$
+
 #### Nested Functions
 #chainrule
 
@@ -245,3 +251,5 @@ has the following properties:
 ### Exercise
 
 ![](/assets/images/2024-03-18-AI%20Study%20Notes-05-27-2024-2.png)
+
+

@@ -66,6 +66,5 @@ print(high_tune_bears.head(5))
 # Applying multiple conditions to find a specific subset of data
 specific_bears = df[(df['tune'] > 50) & (df['bear'] == 'Kodiak')]
 print(specific_bears.head(5))
-
 ```
 
