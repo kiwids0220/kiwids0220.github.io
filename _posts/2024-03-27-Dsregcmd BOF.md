@@ -8,6 +8,12 @@ tags:
 permalink: /:categories/:year/:month/:day/:title
 ---
 
+
+## Update
+
+This is actually doable. Just call the function exported by `dsregcli.dll!DsrCLI`
+[X's Thread](https://x.com/mhskai2017/status/1773532112362045680)
+
 ## Dsregcmd /status
 
 ```
