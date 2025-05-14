@@ -5,7 +5,7 @@ categories: [Useful Links]
 tag: [QEMU, System Dyanmic Analysis, Reverse Debugging, Deep Learning, LLMs]
 ---
 
-# Deep Learning & LLMs
+# Deep Learning
 [Together AI](https://together.ai)
 
 [OpenAI Text Tokenizer](https://platform.openai.com/tokenizer)
@@ -25,6 +25,26 @@ tag: [QEMU, System Dyanmic Analysis, Reverse Debugging, Deep Learning, LLMs]
 [Offensive ML Tool](https://github.com/dreadnode/rigging)
 
 [Local LLM Studio](https://lmstudio.ai/)
+
+[Deep Dive Into LLMs](https://www.youtube.com/watch?v=7xTGNNLPyMI)
+
+### LLM & AI Resources
+- [Lmarena.ai](https://lmarena.ai)
+- [FineWeb (pretraining dataset)](https://huggingface.co/spaces/HuggingFaceH4/fineweb)
+- [Tiktokenizer (tokenizer visualization)](https://tiktokenizer.vercel.app/)
+- [Transformer Neural Net 3D Visualizer](https://bbycroft.net/llm)
+- [llm.c - Let's Reproduce GPT-2 (by Karpathy)](https://github.com/karpathy/llm.c/discussions)
+- [LLaMA 3 Paper (Meta)](https://arxiv.org/abs/2407.21783)
+- [Hyperbolic (Base Model Inference)](https://app.hyperbolic.xyz/)
+- [InstructGPT Paper (SFT)](https://arxiv.org/abs/2203.02155)
+- [HuggingFace Inference Playground](https://huggingface.co/spaces/huggingface-projects/llm-playground)
+- [DeepSeek-R1 Paper](https://arxiv.org/abs/2501.12948)
+- [TogetherAI Playground (Open Model Inference)](https://api.together.xyz/playground)
+- [AlphaGo Paper (PDF)](https://discovery.ucl.ac.uk/id/eprint/14775/1/deepmind.pdf)
+- [AlphaGo Move 37 Reaction Video](https://www.youtube.com/watch?v=WXuK6gekU1Y)
+- [LM Arena (Model Rankings)](https://lmarena.ai/)
+- [AI News Newsletter](https://buttondown.com/ainews)
+- [LMStudio (Local Inference)](https://lmstudio.ai/)
 
 # Books 
 [Deterministic Replay of System’s Execution with Multi-target QEMU Simulator for Dynamic Analysis and Reverse Debugging](https://www.ispras.ru/en/publications/deterministic_replay_of_system_s_execution_with_multi_target_qemu_simulator_for_dynamic_analysis.pdf)
