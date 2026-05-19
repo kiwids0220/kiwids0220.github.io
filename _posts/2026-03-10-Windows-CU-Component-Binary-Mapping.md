@@ -3362,16 +3362,6 @@ x86_microsoft.windows.gdiplus_6595b64144ccf1df [1.1.22621.2506] -> gdiplus.dll
 
 ---
 
-## Methodology & Tools
-
-This mapping was extracted using the [msrc-patch-pipeline](https://github.com/Chrono-Technology/msrc-patch-pipeline) automated Patch Tuesday analysis tool. The extraction process:
-
-1. **Download** both the fix CU (KB5032190) and superseded CU (KB5031354) as `.msu` files from the Microsoft Update Catalog
-2. **Extract** the inner CAB (legacy format) or WIM (modern format) containing component manifests
-3. **Decompress** DCM-compressed manifests using the wcp.dll dictionary (Win32 resource type 614 #1) + `msdelta.dll ApplyDeltaB`
-4. **Parse** each manifest XML for `<file>` elements to extract PE binary names and DigestValue hashes
-5. **Diff** the two inventories by hash to identify changed, added, and removed binaries
-6. **Map** component IDs from manifest filenames (format: `<arch>_<name>_<pubkey>_<version>_<locale>_<hash>.manifest`)
 
 ### Legacy vs Modern CU Format
 
